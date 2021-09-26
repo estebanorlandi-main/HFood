@@ -1,0 +1,22 @@
+nav li {
+  list-style: none;
+}
+nav a {
+  color: #1e1e1e;
+  text-decoration: none;
+}
+
+nav {
+  background-color: #fff;
+}
+
+nav > .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 3em;
+}
+
+nav ul {
+  display: flex;
+}

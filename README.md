@@ -136,12 +136,14 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 El modelo de la base de datos deberá tener las siguientes entidades (Aquellas propiedades marcadas con asterisco deben ser obligatorias):
 
 - [ ] Receta con las siguientes propiedades:
+
   - ID: \*
   - Nombre \*
   - Resumen del plato \*
   - Puntuación
   - Nivel de "comida saludable"
   - Paso a paso
+
 - [ ] Tipo de dieta con las siguientes propiedades:
   - ID
   - Nombre

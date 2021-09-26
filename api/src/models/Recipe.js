@@ -9,11 +9,4 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
   });
-
-  sequelize.define("diet", {
-    name: {
-      type: DataTypes.TEXT,
-      allowNull: false,
-    },
-  });
 };
