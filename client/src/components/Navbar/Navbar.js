@@ -2,13 +2,13 @@ import { NavLink } from "react-router-dom";
 
 import "./Navbar.css";
 
-const current = () => {};
-
 function Navbar(props) {
   return (
     <nav>
       <div className="container">
-        <NavLink to="/landing">HFood</NavLink>
+        <NavLink className="brand" to="/landing">
+          HFood
+        </NavLink>
         <ul>
           <li>
             <NavLink to="/">Home</NavLink>

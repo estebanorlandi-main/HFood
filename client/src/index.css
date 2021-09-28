@@ -1,6 +1,17 @@
+:root {
+  --c-green: #04b762;
+  --c-enfasis: #047742;
+  --c-dark: #2e2e2e;
+}
+
 * {
   margin: 0;
   padding: 0;
+  outline: none;
+}
+*:hover {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -9,4 +20,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  color: var(--c-dark);
+  width: 100vw;
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: #fafafa;
 }

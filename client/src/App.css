@@ -1,4 +1,12 @@
+main {
+  margin-bottom: 1em !important;
+}
+
 .container {
-  width: 90vw;
+  width: 85vw;
   margin: 0 auto;
+}
+
+.mt-2 {
+  margin-top: 2em;
 }

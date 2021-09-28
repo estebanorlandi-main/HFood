@@ -5,8 +5,10 @@ const app = require("../../src/app.js");
 const { Recipe, conn } = require("../../src/db.js");
 
 const agent = session(app);
+
 const recipe = {
   name: "Milanea a la napolitana",
+  resume: "This is a resume",
 };
 
 describe("Recipe routes", () => {
@@ -19,14 +21,4 @@ describe("Recipe routes", () => {
   beforeEach(() =>
     Recipe.sync({ force: true }).then(() => Recipe.create(recipe))
   );
-
-  describe("GET /recipes", () => {
-    it("should get 200", () => agent.get("/recipes").expect(200));
-  });
-  describe("GET /recipes/:id", () => {
-    it("should get 200", () => agent.get("/recipes/0").expect(200));
-  });
-  describe("GET /recipe", () => {
-    it("should get 200", () => agent.post("/recipe").expect(200));
-  });
 });

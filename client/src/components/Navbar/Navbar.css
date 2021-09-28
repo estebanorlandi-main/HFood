@@ -1,22 +1,41 @@
+nav {
+  background-color: #fff;
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
 nav li {
   list-style: none;
 }
 nav a {
   color: #1e1e1e;
   text-decoration: none;
+  font-weight: 300;
+  font-size: 1rem;
+  transition: color 0.25s;
 }
-
-nav {
-  background-color: #fff;
+nav a:active {
+  color: var(--c-enfasis);
 }
-
+nav li:not(:last-child) {
+  margin-right: 1em;
+}
 nav > .container {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 3em;
+  height: 4em;
 }
 
 nav ul {
   display: flex;
+}
+
+.brand {
+  font-weight: 500;
+  font-size: 1.25rem;
+  color: var(--c-green);
 }

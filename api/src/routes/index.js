@@ -10,28 +10,33 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-const complex = (information = false, page = 0, number = 100) =>
-  `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=${information}&offset=${page}&number=${number}`;
+const baseURL = "https://api.spoonacular.com/recipes";
 
-const single = (id) =>
-  `https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`;
+const complex = (information = false, query, number = 100) =>
+  baseURL +
+  `/complexSearch?${
+    query ? `query=${query}&` : ""
+  }apiKey=${API_KEY}&addRecipeInformation=${information}&number=${number}`;
+
+const single = (id) => `${baseURL}/${id}/information?apiKey=${API_KEY}`;
 
 router.get("/recipes", async (req, res) => {
-  const { data } = await axios.get(complex(true));
+  const { name, page } = req.query;
+  const { data } = await axios.get(complex(true, name));
+
+  const results = data.results.slice(page * 9, page * 9 + 9);
 
   if (!data) return res.status(400).json({ err: "Spoonacular API error" });
-
-  return res.status(200).json(data);
+  return res.status(200).json({ results, page: parseInt(page) });
 });
 
 router.get("/recipes/:id", async (req, res) => {
   const { id } = req.params;
   const { data } = await axios.get(single(id));
-  console.log(data);
 
   if (!data) return res.status(400).json({ err: "Spoonacular API error" });
 
-  return res.status(200).json(data);
+  return res.status(200).json(data.results);
 });
 
 router.get("/types", (req, res) => {

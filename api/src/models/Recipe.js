@@ -8,5 +8,18 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    resume: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    score: {
+      type: DataTypes.INTEGER,
+    },
+    level: {
+      type: DataTypes.INTEGER,
+    },
+    step: {
+      type: DataTypes.STRING,
+    },
   });
 };

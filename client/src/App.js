@@ -3,12 +3,6 @@ import { Fragment } from "react";
 // Router
 import { Switch, Route } from "react-router";
 
-// Redux Hooks
-//import { useSelector } from "react-redux";
-//import { useDispatch } from "react-redux";
-// Actions
-// import { getRecipes } from "./Redux/actions/index";
-
 // Components
 import Navbar from "./components/Navbar/Navbar";
 
