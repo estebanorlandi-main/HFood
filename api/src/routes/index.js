@@ -24,10 +24,12 @@ router.get("/recipes", async (req, res) => {
   const { name, page } = req.query;
   const { data } = await axios.get(complex(true, name));
 
+  const totalPages = Math.ceil(data.results.length / 9);
+
   const results = data.results.slice(page * 9, page * 9 + 9);
 
   if (!data) return res.status(400).json({ err: "Spoonacular API error" });
-  return res.status(200).json({ results, page: parseInt(page) });
+  return res.status(200).json({ results, page: parseInt(page), totalPages });
 });
 
 router.get("/recipes/:id", async (req, res) => {

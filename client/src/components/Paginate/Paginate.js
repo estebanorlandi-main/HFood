@@ -5,17 +5,21 @@ import { getRecipes } from "../../Redux/actions/index";
 
 function Paginate(props) {
   const dispatch = useDispatch();
-  const page = useSelector((state) => state.page);
+  const page = useSelector((state) => ({
+    actual: state.page,
+    totalPages: state.totalPages,
+  }));
 
-  const handlePage = (page = 0) => {
-    if (page > 0) dispatch(getRecipes(props.search, page));
+  const handlePage = (nextPage = 0) => {
+    if (nextPage > 0 && nextPage < page.totalPages)
+      dispatch(getRecipes(props.search, nextPage));
   };
 
   return (
     <div>
-      <button onClick={(e) => handlePage(page - 1)}>Prev</button>
-      <button>{page + 1}</button>
-      <button onClick={(e) => handlePage(page + 1)}>Next</button>
+      <button onClick={(e) => handlePage(page.actual - 1)}>Prev</button>
+      <button>{page.actual + 1}</button>
+      <button onClick={(e) => handlePage(page.actual + 1)}>Next</button>
     </div>
   );
 }

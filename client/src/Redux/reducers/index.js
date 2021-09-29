@@ -13,6 +13,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         recipes: action.payload.results,
         page: action.payload.page,
+        totalPages: action.payload.totalPages,
       };
     case RECIPE_DETAILS:
       return { ...state, details: action.payload.results };

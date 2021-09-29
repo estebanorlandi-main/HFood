@@ -9,7 +9,7 @@ import styles from "./Home.module.css";
 
 function Home(props) {
   const dispatch = useDispatch();
-  const recipes = useSelector((state) => state.recipes);
+  const recipes = useSelector((store) => store.recipes);
 
   const [search, setSearch] = useState("");
 
