@@ -9,7 +9,7 @@ function Card(props) {
       </div>
       <ul className={styles.diets}>
         {props.diets.map((diet) => (
-          <li>{diet}</li>
+          <li key={diet}>{diet}</li>
         ))}
       </ul>
     </div>

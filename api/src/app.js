@@ -26,6 +26,9 @@ server.use((req, res, next) => {
   next();
 });
 
+// Body parser
+server.use(express.json());
+
 // Cors config
 server.use(cors({ origin: "*" }));
 
