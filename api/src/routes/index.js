@@ -24,33 +24,35 @@ const complex = (information = false, query, number = 100) =>
 const single = (id) => `${baseURL}/${id}/information?apiKey=${API_KEY}`;
 
 router.get("/recipes", async (req, res) => {
-  const { name, page } = req.query;
+  const { name = "" } = req.query;
 
-  const dbData = await Recipe.findAll({ raw: true, where: { name } });
+  const dbData = await Recipe.findAll(
+    { raw: true, where: { name } },
+    { include: [{ model: Diet }] }
+  );
+
   const { data: apiData } = await axios.get(complex(true, name));
-
-  const pagesDB = Math.ceil(dbData.length / 9);
-  const dbRecipes = dbData.slice(page * 9, page * 9 + 9);
-
-  const pagesAPI = Math.ceil(apiData.results.length / 9);
-  const apiRecipes = apiData.results.slice(page * 9, page * 9 + 9);
+  //const apiData = { results: [] };
 
   const results = {
-    db: { results: dbRecipes, page: parseInt(page), pages: pagesDB },
-    api: { results: apiRecipes, page: parseInt(page), pages: pagesAPI },
+    db: dbData,
+    api: apiData.results,
   };
 
-  // if (!data) return res.status(400).json({ err: "Spoonacular API error" });
   return res.status(200).json(results);
 });
 
 router.get("/recipes/:id", async (req, res) => {
   const { id } = req.params;
-  const { data } = await axios.get(single(id));
+  const { data: apiData } = await axios.get(single(id));
 
-  if (!data) return res.status(400).json({ err: "Spoonacular API error" });
+  //const dbData = await Recipe.findAll({ raw: true, where: { name } });
+  //const apiData = { results: [] };
+  const dbData = [];
+  console.log(apiData);
+  // healthScore - title - id - image - diets - analyzedInstructions/steps
 
-  return res.status(200).json(data.results);
+  return res.status(200).json(apiData);
 });
 
 router.get("/types", async (req, res) => {
@@ -85,7 +87,12 @@ router.get("/types", async (req, res) => {
 router.post("/recipe", (req, res) => {
   const { name, resume, score, level, step } = req.body;
 
-  Recipe.create({ name, resume, score, level, step });
+  // Find Diet -> Get ID -> Pass id to object
+
+  Recipe.create(
+    { name, resume, score, level, step },
+    { include: [{ model: Diet }] }
+  );
 
   res.status(200).json({
     msg: req.body,
@@ -100,9 +107,11 @@ router.get("/fill", (req, res) => {
     level: 10,
     step: "this is the step",
   };
+
   for (let i = 0; i < 20; i++) {
     Recipe.create(obj);
   }
+
   res.json({ msg: "ok" });
 });
 

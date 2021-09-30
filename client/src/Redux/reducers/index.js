@@ -1,22 +1,22 @@
 import { GET_RECIPES, RECIPE_DETAILS, DIET_TYPES } from "../actions/index";
 
 const initialState = {
-  recipes: [],
+  db: [],
+  api: [],
   details: {},
-  page: 0,
 };
 
 export default function rootReducer(state = initialState, action) {
+  console.log(action.payload);
   switch (action.type) {
     case GET_RECIPES:
       return {
         ...state,
-        recipes: action.payload.results,
-        page: action.payload.page,
-        totalPages: action.payload.totalPages,
+        db: action.payload.db,
+        api: action.payload.api,
       };
     case RECIPE_DETAILS:
-      return { ...state, details: action.payload.results };
+      return { ...state, details: action.payload };
     default:
       return state;
   }
