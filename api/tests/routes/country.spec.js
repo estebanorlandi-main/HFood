@@ -11,7 +11,7 @@ const recipe = {
   resume: "This is a resume",
 };
 
-describe("Recipe routes", () => {
+xdescribe("Recipe routes", () => {
   before(() =>
     conn.authenticate().catch((err) => {
       console.error("Unable to connect to the database:", err);
