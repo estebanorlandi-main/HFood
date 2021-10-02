@@ -2,6 +2,7 @@ require("dotenv").config();
 const { API_KEY } = process.env;
 const { Router } = require("express");
 const router = Router();
+const { Op } = require("sequelize");
 
 const axios = require("axios");
 const { Diet, Recipe } = require("../db");
@@ -24,21 +25,26 @@ router.get("/recipes", async (req, res) => {
   const { name = "" } = req.query;
 
   try {
-    const dbData = await Recipe.findAll({
-      raw: true,
-      where: { name },
-      include: Diet,
-    }).map((recipe) => ({ ...recipe, isDB: true }));
+    const query = { raw: true, include: [Diet] };
+    if (name) query.where = { name };
 
-    const { data: apiData } = await axios.get(complex(name));
+    const dbData = await Recipe.findAll(query);
 
-    if (!dbData.length && !apiData.results.length) throw Error();
+    const { data } = await axios.get(complex(name));
+    const apiData = data.results.map((recipe) => ({
+      id: recipe.id,
+      title: recipe.title,
+      image: recipe.image,
+      diets: recipe.diets,
+    }));
 
-    const results = [...dbData, ...apiData.results];
+    if (!dbData.length && !apiData.length) throw Error();
+
+    const results = { db: dbData, api: apiData };
 
     return res.status(200).json(CreateResponse("Recipes founded", results, {}));
   } catch (err) {
-    return res.status(404).json(CreateResponse("Recipes not found", [], err));
+    return res.status(404).json(CreateResponse("Recipes not found", null, err));
   }
 });
 
@@ -94,9 +100,9 @@ router.post("/recipe", async (req, res) => {
   const { name, resume, score, level, step, diet } = req.body;
 
   try {
-    const dietObj = await Diet.findOne({
-      raw: true,
-      where: { name: diet.toLowerCase() },
+    const dietObj = await Diet.findAll({
+      where: { name: { [Op.or]: diet } },
+      include: [Recipe],
     });
 
     const newRecipe = await Recipe.create(
@@ -107,63 +113,19 @@ router.post("/recipe", async (req, res) => {
         level,
         step,
       },
-      {
-        include: [Diet],
-      }
+      { include: [Diet] }
     );
 
-    await newRecipe.addDiets([dietObj]);
+    await newRecipe.addDiets(dietObj);
 
     return res
       .status(200)
-      .json(CreateResponse("Recipe Created", [newRecipe.toJSON()], {}));
+      .json(CreateResponse("Recipe Created", [newRecipe], {}));
   } catch (err) {
     return res
       .status(400)
       .json(CreateResponse("Error creating recipe", [], err));
   }
-});
-
-router.get("/test", async (req, res) => {
-  const vegan = await Diet.create({ name: "vegan" }, { include: [Recipe] });
-
-  const vegetarian = await Diet.create(
-    { name: "vegetarian" },
-    { include: [Recipe] }
-  );
-
-  const pescetarian = await Diet.create(
-    { name: "pescetarian" },
-    { include: [Recipe] }
-  );
-
-  const recipe = {
-    name: "Berry",
-    resume: "This is the resume",
-    score: 10,
-    level: 10,
-    step: "Hola Mundo!",
-  };
-
-  const recipe2 = {
-    name: "Fries",
-    resume: "This is the resume",
-    score: 10,
-    level: 10,
-    step: "Hola Mundo!",
-  };
-
-  const newRecipe = await Recipe.create(recipe, { include: [Diet] });
-  const newRecipe2 = await Recipe.create(recipe2, { include: [Diet] });
-
-  const recipes = await newRecipe.addDiets([vegan, pescetarian]);
-  const diets = await newRecipe2.addDiets([vegetarian, vegan]);
-
-  const results = [...recipes, ...diets];
-
-  console.log(results);
-
-  res.status(200).json(results);
 });
 
 module.exports = router;
