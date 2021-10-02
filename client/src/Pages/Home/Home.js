@@ -12,6 +12,8 @@ function Home(props) {
   const dispatch = useDispatch();
   const recipes = useSelector((state) => state.api);
 
+  const details = useSelector((state) => state.details);
+
   const [search, setSearch] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [firstLoad, setFirstLoad] = useState(true);
@@ -27,8 +29,8 @@ function Home(props) {
   });
 
   const handleSubmit = (e) => {
-    setLoading(true);
     e.preventDefault();
+    setLoading(true);
     dispatch(getRecipes(search));
   };
 
@@ -48,6 +50,31 @@ function Home(props) {
           type="text"
         />
       </form>
+
+      {details.title ? (
+        <div>
+          <h4>{details.title} </h4>
+          <br />
+
+          <ul>
+            {details.extendedIngredients.map((ingredient) => (
+              <li>{ingredient.name}</li>
+            ))}{" "}
+          </ul>
+
+          <br />
+          <p>{details.summary.replaceAll(/<\w+>/g, "")}</p>
+          <br />
+
+          <ul>
+            {details.diets.map((diet) => (
+              <li>{diet}</li>
+            ))}{" "}
+          </ul>
+        </div>
+      ) : (
+        ""
+      )}
 
       {isLoading && !recipes ? <Loader /> : <Cards recipes={recipes} />}
     </main>

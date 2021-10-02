@@ -5,6 +5,7 @@ import { getRecipes } from "../../Redux/actions/index";
 
 function Paginate(props) {
   const dispatch = useDispatch();
+
   const page = useSelector((state) => ({
     actual: state.page,
     totalPages: state.totalPages,

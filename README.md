@@ -85,10 +85,10 @@ A continuación se detallaran los requerimientos mínimos para la aprobación de
 
 #### Tecnologías necesarias:
 
-- [ ] React
-- [ ] Redux
-- [ ] Express
-- [ ] Sequelize - Postgres
+- [x] React
+- [x] Redux
+- [x] Express
+- [x] Sequelize - Postgres
 
 #### Frontend
 
@@ -101,8 +101,8 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 
 **Ruta principal**: debe contener
 
-- [ ] Input de búsqueda para encontrar recetas por nombre
-- [ ] Área donde se verá el listado de recetas. Deberá mostrar su:
+- [x] Input de búsqueda para encontrar recetas por nombre
+- [x] Área donde se verá el listado de recetas. Deberá mostrar su:
   - Imagen
   - Nombre
   - Tipo de dieta (vegetariano, vegano, apto celíaco, etc)
@@ -135,7 +135,7 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 
 El modelo de la base de datos deberá tener las siguientes entidades (Aquellas propiedades marcadas con asterisco deben ser obligatorias):
 
-- [ ] Receta con las siguientes propiedades:
+- [x] Receta con las siguientes propiedades:
 
   - ID: \*
   - Nombre \*
@@ -144,7 +144,7 @@ El modelo de la base de datos deberá tener las siguientes entidades (Aquellas p
   - Nivel de "comida saludable"
   - Paso a paso
 
-- [ ] Tipo de dieta con las siguientes propiedades:
+- [x] Tipo de dieta con las siguientes propiedades:
   - ID
   - Nombre
 
@@ -158,14 +158,14 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 
 **IMPORTANTE**: No está permitido utilizar los filtrados, ordenamientos y paginados brindados por la API externa, todas estas funcionalidades tienen que implementarlas ustedes.
 
-- [ ] **GET /recipes?name="..."**:
+- [x] **GET /recipes?name="..."**:
   - Obtener un listado de las recetas que contengan la palabra ingresada como query parameter
   - Si no existe ninguna receta mostrar un mensaje adecuado
 - [ ] **GET /recipes/{idReceta}**:
   - Obtener el detalle de una receta en particular
   - Debe traer solo los datos pedidos en la ruta de detalle de receta
   - Incluir los tipos de dieta asociados
-- [ ] **GET /types**:
+- [x] **GET /types**:
   - Obtener todos los tipos de dieta posibles
   - En una primera instancia, cuando no exista ninguno, deberán precargar la base de datos con los tipos de datos indicados por spoonacular [acá](https://spoonacular.com/food-api/docs#Diets)
 - [ ] **POST /recipe**:
@@ -176,5 +176,4 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 
 - [ ] Al menos tener un componente del frontend con sus tests respectivos
 - [ ] Al menos tener una ruta del backend con sus tests respectivos
-- [ ] Al menos tener un modelo de la base de datos con sus tests respectivos
-      .
+- [ ] Al menos tener un modelo de la base de datos con sus tests respectivos.
