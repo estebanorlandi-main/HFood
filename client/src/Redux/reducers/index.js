@@ -1,7 +1,8 @@
-import { GET_RECIPES, RECIPE_DETAILS, DIET_TYPES } from "../actions/index";
+import { GET_RECIPES, RECIPE_DETAILS } from "../actions/index";
 
 const initialState = {
-  results: [],
+  db: [],
+  api: [],
   details: {},
 };
 
@@ -11,7 +12,8 @@ export default function rootReducer(state = initialState, action) {
     case GET_RECIPES:
       return {
         ...state,
-        results: [...action.payload.db, ...action.payload.api],
+        db: action.payload.results.db,
+        api: action.payload.results.api,
       };
     case RECIPE_DETAILS:
       return { ...state, details: action.payload };

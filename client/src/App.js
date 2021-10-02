@@ -1,28 +1,15 @@
 import { Fragment } from "react";
 
-// Router
-import { Switch, Route } from "react-router";
-
-// Components
-import Navbar from "./components/Navbar/Navbar";
-
-// Pages
-import Home from "./Pages/Home/Home";
-import Landing from "./Pages/Landing/Landing";
-import Recipes from "./Pages/Recipes/Recipes";
+import Home from "./Pages/Home/Home.jsx";
 
 import "./App.css";
 
 function App() {
   return (
     <Fragment>
-      <Navbar />
-
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/landing" component={Landing} />
-        <Route path="/recipes" component={Recipes} />
-      </Switch>
+      <main className="container">
+        <Home />
+      </main>
     </Fragment>
   );
 }
