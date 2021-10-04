@@ -31,18 +31,16 @@ function Home() {
               {apiRecipes.length} / {filtered.length}
             </span>
             <div className="grid">
-              {filtered
-                ? filtered.map((recipe) => (
-                    <Card
-                      key={recipe.id}
-                      image={recipe.image}
-                      title={recipe.title}
-                      diets={recipe.diets}
-                      score={recipe.score}
-                      healthScore={recipe.healthScore}
-                    />
-                  ))
-                : ""}
+              {filtered.map((recipe) => (
+                <Card
+                  key={recipe.id}
+                  image={recipe.image}
+                  title={recipe.title}
+                  diets={recipe.diets}
+                  score={recipe.score}
+                  healthScore={recipe.healthScore}
+                />
+              ))}
             </div>
           </div>
         ) : (

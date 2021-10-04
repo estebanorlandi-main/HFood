@@ -1,5 +1,3 @@
-require("dotenv").config();
-const { API_KEY } = process.env;
 const { Router } = require("express");
 const router = Router();
 const { Op } = require("sequelize");
@@ -7,17 +5,59 @@ const { Op } = require("sequelize");
 const axios = require("axios");
 const { Diet, Recipe } = require("../db");
 
-const baseURL = "https://api.spoonacular.com/recipes";
-const complex = (query) =>
-  baseURL +
-  `/complexSearch?query=${query}&apiKey=${API_KEY}&addRecipeInformation=true&number=100`;
-const single = (id) => baseURL + `/${id}/information?apiKey=${API_KEY}`;
+const { complex, single } = require("./urls");
 
 const CreateResponse = (message, results, error) => {
   return {
     message,
     results,
     error,
+  };
+};
+
+const dbObjFormat = (dbObj) => {
+  if (Array.isArray(dbObj)) {
+    if (!dbObj.length) null;
+    return dbObj.map((recipe) => {
+      const obj = recipe.toJSON();
+      return {
+        ...obj,
+        diets: obj.diets.map((diet) => diet.name),
+        isDB: true,
+      };
+    });
+  }
+
+  if (!Object.keys(dbObj).length) return null;
+  const obj = dbObj.toJSON();
+  return { ...obj, diets: obj.diets.map((diet) => diet.name), isDB: true };
+};
+
+const apiObjFormat = ({ data: { results } }) => {
+  if (Array.isArray(results)) {
+    if (!results.length) return null;
+    return results.map((recipe) => ({
+      id: recipe.id,
+      title: recipe.title,
+      image: recipe.image,
+      diets: recipe.diets,
+      score: recipe.spoonacularScore,
+      healthScore: recipe.healthScore,
+      isDB: false,
+    }));
+  }
+
+  if (!Object.keys(results).length) return null;
+  if (apiData.data.status === 404) return null;
+
+  const { id, title, image, summary, diets, instructions } = results;
+  return {
+    id,
+    title,
+    image,
+    summary: summary.replaceAll(/<\/?[^>]+(>|$)/g, ""),
+    diets,
+    instructions: instructions.replaceAll(/<\/?[^>]+(>|$)/g, ""),
   };
 };
 
@@ -28,28 +68,11 @@ router.get("/recipes", async (req, res) => {
     const query = { include: [Diet] };
     if (name) query["where"] = { name };
 
-    const dbData = (await Recipe.findAll(query)).map((recipe) => {
-      const json = recipe.toJSON();
-      return {
-        ...json,
-        diets: json.diets.map((diet) => diet.name),
-        isDB: true,
-      };
-    });
+    const dbData = dbObjFormat(await Recipe.findAll(query));
+    const apiData = apiObjFormat(await axios.get(complex(name)));
 
-    const { data } = await axios.get(complex(name));
-
-    const apiData = data.results.map((recipe) => ({
-      id: recipe.id,
-      title: recipe.title,
-      image: recipe.image,
-      diets: recipe.diets,
-      score: recipe.spoonacularScore,
-      healthScore: recipe.healthScore,
-      isDB: false,
-    }));
-
-    if (!dbData.length && !apiData.length) throw Error();
+    if (!dbData.length && !apiData.length)
+      throw Error({ message: "Recipes not found :(" });
 
     const results = [...dbData, ...apiData];
 
@@ -57,7 +80,6 @@ router.get("/recipes", async (req, res) => {
       .status(200)
       .json(CreateResponse("Recipes founded", results, null));
   } catch (err) {
-    console.log(err);
     return res.status(404).json(CreateResponse("Recipes not found", null, err));
   }
 });
@@ -66,36 +88,17 @@ router.get("/recipes/:id", async (req, res) => {
   const { id } = req.params;
 
   try {
-    if (id.match(/\-+/)) {
-      const dbData = await Recipe.findOne({ raw: true, where: { id } });
-      if (dbData)
-        return res
-          .status(200)
-          .json(CreateResponse("Recipe found", dbData, null));
-    }
+    const dbData = dbObjFormat(
+      await Recipe.findOne({ where: { id }, include: [Diet] })
+    );
 
-    const { data: apiData } = await axios.get(single(id));
-    if (apiData.data && apiData.data.status === 404) throw Error();
+    if (dbData)
+      return res.status(200).json(CreateResponse("Recipe found", dbData, null));
 
-    const {
-      id: idResult,
-      title,
-      image,
-      summary,
-      diets,
-      instructions,
-    } = apiData;
+    const apiData = apiObjFormat(await axios.get(single(id)));
+    if (apiData) throw Error();
 
-    const x = {
-      id: idResult,
-      title,
-      image,
-      summary: summary.replaceAll(/<\/?[^>]+(>|$)/g, ""),
-      diets,
-      instructions: instructions.replaceAll(/<\/?[^>]+(>|$)/g, ""),
-    };
-
-    return res.status(200).json(CreateResponse("Recipe found", x, null));
+    return res.status(200).json(CreateResponse("Recipe found", apiData, null));
   } catch (err) {
     return res.status(404).json(CreateResponse("Recipe not found", null, err));
   }
@@ -131,33 +134,35 @@ router.get("/types", async (req, res) => {
 });
 
 router.post("/recipe", async (req, res) => {
-  const { name, resume, score, level, step, diet } = req.body;
-
-  // diet = ["", "", ""]
+  const { title, summary, score, healthScore, instructions, diets } = req.body;
 
   try {
-    const dietObj = await Diet.findAll({
-      where: { name: { [Op.or]: diet } },
+    const dietsFound = await Diet.findAll({
+      where: { name: { [Op.or]: diets } },
       include: [Recipe],
     });
 
+    if (!dietsFound.length) throw Error("Diet not found");
+
     const newRecipe = await Recipe.create(
       {
-        name,
-        resume,
+        title,
+        summary,
         score,
-        level,
-        step,
+        healthScore,
+        instructions,
       },
       { include: [Diet] }
     );
 
     await newRecipe.addDiets(dietObj);
 
-    const response = await Recipe.findOne({
-      where: { id: newRecipe.id },
-      include: [Diet],
-    });
+    const response = apiObjFormat(
+      await Recipe.findOne({
+        where: { id: newRecipe.id },
+        include: [Diet],
+      })
+    );
 
     return res
       .status(200)
@@ -167,31 +172,6 @@ router.post("/recipe", async (req, res) => {
       .status(400)
       .json(CreateResponse("Error creating recipe", null, err));
   }
-});
-
-router.get("/test", async (req, res) => {
-  const vegan = await Diet.create({ name: "vegan" }, { include: [Recipe] });
-  const vegetarian = await Diet.create(
-    { name: "vegetarian" },
-    { include: [Recipe] }
-  );
-
-  const newRecipe = await Recipe.create({
-    title: "Berry",
-    resume: "This is the resume",
-    score: 10,
-    level: 10,
-    step: "Steps",
-  });
-
-  await newRecipe.addDiets([vegan, vegetarian]);
-
-  const recipe = await Recipe.findOne({
-    where: { id: newRecipe.id },
-    include: [Diet],
-  });
-
-  res.status(200).json(recipe);
 });
 
 module.exports = router;

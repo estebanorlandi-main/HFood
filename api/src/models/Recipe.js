@@ -11,21 +11,21 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
       },
-      name: {
+      title: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      resume: {
+      summary: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       score: {
         type: DataTypes.INTEGER,
       },
-      level: {
+      healthScore: {
         type: DataTypes.INTEGER,
       },
-      step: {
+      instructions: {
         type: DataTypes.STRING,
       },
     },
