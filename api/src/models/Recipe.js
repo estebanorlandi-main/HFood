@@ -14,9 +14,6 @@ module.exports = (sequelize) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          is: /^[\w\s]{3,32}/,
-        },
       },
       resume: {
         type: DataTypes.STRING,

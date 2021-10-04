@@ -1,0 +1,31 @@
+.filters {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #f0f0f0;
+  margin: 2em 0;
+  padding: 1em;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: max-content;
+  margin: 0 0 0 1em;
+}
+.options > label {
+  margin: 0 0 0 0.5em;
+  display: flex;
+  font-size: 0.9rem;
+  padding: 0.25em;
+}
+
+.options input[type="checkbox"] {
+  display: inline;
+  margin: 0 0.5em 0 0;
+}
+
+.options label:focus-within {
+  outline: solid 2px var(--c-green);
+}

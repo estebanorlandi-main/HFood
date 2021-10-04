@@ -1,12 +1,45 @@
 main {
-  margin-bottom: 1em !important;
+  min-height: 100vh;
 }
-
 .container {
-  width: 85vw;
+  width: 90vw;
   margin: 0 auto;
 }
 
 .mt-2 {
   margin-top: 2em;
+}
+
+.grid {
+  margin: 1.5em 0 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
+  gap: 2em;
+}
+
+.f-small {
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #888;
+}
+
+.btn {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+  padding: 0.75em 1em;
+}
+
+.btn.primary {
+  background-color: var(--c-green);
+  box-shadow: 0 0.5em 1em transparent;
+  color: #fff;
+  font-size: 0.9rem;
+  transition: all 0.25s ease;
+}
+
+.btn.primary:hover,
+.btn.primary:focus {
+  background-color: var(--c-enfasis);
+  box-shadow: 0 0.5em 1em #04b76255;
 }
