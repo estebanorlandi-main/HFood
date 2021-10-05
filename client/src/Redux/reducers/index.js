@@ -1,33 +1,49 @@
-import { GET_RECIPES, RECIPE_DETAILS, BY_DIET } from "../actions/index";
-import test from "../../Pages/Home/recipes.example.json";
+import {
+  GET_RECIPES,
+  RECIPE_DETAILS,
+  FILTER,
+  DIET_TYPES,
+} from "../actions/index";
 
 const initialState = {
-  results: test.results,
-  filtered: [],
+  results: [],
+  modified: [],
   details: {},
+  diets: [],
 };
 
 export default function rootReducer(state = initialState, action) {
-  console.log(action);
   switch (action.type) {
     case GET_RECIPES:
       return {
         ...state,
         results: action.payload.results,
+        modified: action.payload.results,
       };
-    case BY_DIET:
-      return {
-        ...state,
-        filtered: state.results.filter(({ diets }) => {
-          const data = Object.entries(action.payload);
-          let x = 0;
-          for (let i = 0; i < data.length; i++)
-            if (data[i][1] && diets.includes(data[i][0])) x++;
-          return x > 0;
-        }),
-      };
+
+    case FILTER:
+      const { order } = action.payload;
+      if (order.type === 0) return { ...state, modified: state.results };
+      if (order.by) {
+        const sorted = [...state.results].sort((a, b) =>
+          order.type === 1
+            ? a[order.by] < b[order.by]
+            : a[order.by] > b[order.by]
+        );
+
+        return {
+          ...state,
+          modified: sorted,
+        };
+      }
+      return { ...state };
+
     case RECIPE_DETAILS:
-      return { ...state, details: action.payload };
+      return { ...state, details: action.payload.results };
+
+    case DIET_TYPES:
+      return { ...state, diets: action.payload.results };
+
     default:
       return state;
   }

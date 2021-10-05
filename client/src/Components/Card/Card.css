@@ -5,12 +5,33 @@
   flex-direction: column;
   min-height: 14em;
   border-radius: 0.75em;
-  box-shadow: 0 0.5em 1em #0002;
+  box-shadow: 0 3px 3px #0001;
   overflow: hidden;
   transition: all 0.25s ease;
 }
 
+.from {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 1em;
+  padding: 1em;
+  color: #fff;
+  transition: all 0.25s;
+  font-weight: bold;
+}
+
+.from.Database {
+  background-color: #72a;
+}
+.from.API {
+  background-color: #a33;
+}
+
 .card__img {
+  background-color: #ccc;
+  color: transparent;
+  min-height: 12em;
   opacity: 0.75;
   transition: all 0.25s;
 }
@@ -38,6 +59,8 @@
   z-index: 2;
   margin-bottom: 1em;
   transition: all 0.25s;
+  max-height: 1em;
+  overflow-y: hidden;
 }
 
 .card__diets {
@@ -61,11 +84,9 @@
 
 .card:hover {
   transform: translateY(-0.5em);
-  box-shadow: 0 0.5em 1em #0004;
+  box-shadow: 0 8px 10px #0002;
 }
 
 .card:hover .card__img {
   opacity: 1;
-}
-.diet:hover {
 }

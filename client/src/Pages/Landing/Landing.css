@@ -1,3 +1,77 @@
-.btn {
+.landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.landing__head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5em;
+  gap: 1em;
+}
+
+.btn.home {
+  position: relative;
+  z-index: 2;
+  background-color: transparent;
   border: 2px solid var(--c-green);
+  color: var(--c-green);
+  text-decoration: none;
+  width: max-content;
+  transition: all 0.5s;
+  font-size: 1.25rem;
+}
+
+.btn.home::before,
+.btn.home::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 0;
+  height: 0;
+  background-color: var(--c-green);
+  transition: all 0.5s;
+}
+.btn.home::before {
+  top: 0;
+  left: 0;
+  border-radius: 0 0 50% 0;
+}
+.btn.home::after {
+  border-radius: 50% 0 0;
+  bottom: 0;
+  right: 0;
+}
+.btn.home:hover {
+  color: #fff;
+}
+
+.btn.home:hover::before,
+.btn.home:hover::after {
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (min-width: 40em) {
+  .landing .title {
+    font-size: 2rem;
+  }
+  .btn.home {
+    padding-right: 2em;
+    padding-left: 2em;
+  }
+}
+
+@media screen and (min-width: 60em) {
+  .landing .title {
+    font-size: 3rem;
+  }
+  .landing .quote {
+    font-size: 1.25rem;
+  }
 }

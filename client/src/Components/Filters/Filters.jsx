@@ -1,21 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { useDispatch } from "react-redux";
-import { byDiet } from "../../Redux/actions/index";
+import { useSelector, useDispatch } from "react-redux";
+import { filter } from "../../Redux/actions/index";
 
 import Button from "../Buttons/Buttons.jsx";
 
 import "./Filters.css";
 
 function Filters(props) {
-  const [inputs, setInputs] = useState({});
-
   const dispatch = useDispatch();
+  const diets = useSelector((state) => state.diets);
 
-  const handleInput = (e) => {
+  const [inputs, setInputs] = useState({
+    order: {
+      by: null,
+      type: 0,
+    },
+    filters: [],
+  });
+
+  useEffect(
+    () => dispatch(filter(inputs)),
+    [inputs, dispatch, inputs.order.by, inputs.order.type]
+  );
+
+  const handleFilter = (e) => {
+    const save = !inputs.filters.includes(e.target.name);
     setInputs((oldInputs) => ({
       ...oldInputs,
-      [e.target.name]: e.target.checked,
+      filters: save
+        ? [...oldInputs.filters, e.target.name]
+        : oldInputs.filters.filter((f) => f !== e.target.name),
+    }));
+  };
+
+  const handleOrder = (e) => {
+    let type = inputs.order.type;
+    if (e.target.name !== inputs.order.by) type = 0;
+    else if (inputs.order.type === 0) type = 1;
+    else if (inputs.order.type === 1) type = -1;
+    else if (inputs.order.type === -1) type = 0;
+
+    setInputs((oldInputs) => ({
+      ...oldInputs,
+      order: {
+        by: e.target.name,
+        type,
+      },
     }));
   };
 
@@ -24,69 +55,31 @@ function Filters(props) {
       <Button
         type="primary"
         text="Filter"
-        onClick={() => dispatch(byDiet(inputs))}
+        onClick={() => dispatch(filter(inputs))}
       />
+
       <div className="options">
-        <label>
-          <input
-            type="checkbox"
-            name="gluten free"
-            onChange={handleInput}
-            value={inputs["gluten free"]}
-          />
-          Gluten Free
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            name="dairy free"
-            onChange={handleInput}
-            value={inputs["dairy free"]}
-          />
-          Dariry Free
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            name="primal"
-            onChange={handleInput}
-            value={inputs["primal"]}
-          />
-          Primal
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            name="vegan"
-            onChange={handleInput}
-            value={inputs["vegan"]}
-          />
-          Vegan
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            name="paleolithic"
-            onChange={handleInput}
-            value={inputs["paleolithic"]}
-          />
-          Paleolithic
-        </label>
-
-        <label>
-          <input
-            type="checkbox"
-            name="lacto ovo vegetarian"
-            onChange={handleInput}
-            value={inputs["lacto ovo vegetarian"]}
-          />
-          Lacto Ovo Vegetarian
-        </label>
+        {diets
+          ? diets.map((diet) => (
+              <label key={diet}>
+                <input
+                  type="checkbox"
+                  name={diet}
+                  onChange={handleFilter}
+                  value={inputs[diet]}
+                />
+                {diet}
+              </label>
+            ))
+          : ""}
       </div>
+
+      <button name="score" onClick={handleOrder}>
+        Score
+      </button>
+      <button name="title" onClick={handleOrder}>
+        Title
+      </button>
     </div>
   );
 }

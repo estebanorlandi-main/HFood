@@ -1,77 +1,68 @@
-import { Fragment } from "react";
+import { Fragment, useState, useEffect, useCallback } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getRecipes } from "../../Redux/actions/index";
+import { getRecipes, getTypes } from "../../Redux/actions/index";
 
-import Button from "../../Components/Buttons/Buttons.jsx";
 import Filters from "../../Components/Filters/Filters.jsx";
 import Card from "../../Components/Card/Card.jsx";
 
+import Paginate from "../../Components/Paginate/Paginate";
+
 function Home() {
   const dispatch = useDispatch();
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [show, setShow] = useState([]);
 
-  const apiRecipes = useSelector((state) => state.results);
-  const filtered = useSelector((state) => state.filtered);
+  const modified = useSelector((state) => state.modified);
 
-  const handleOnClick = (e) => {
-    dispatch(getRecipes());
+  const page = (page = 0, perPage = 9) => {
+    setShow((oldShow) =>
+      modified.slice(page * perPage, page * perPage + perPage)
+    );
   };
+
+  const firstPage = useCallback(
+    (page = 0, perPage = 9) => {
+      setShow((oldShow) =>
+        modified.slice(page * perPage, page * perPage + perPage)
+      );
+    },
+    [modified]
+  );
+
+  useEffect(() => {
+    if (firstLoad) {
+      dispatch(getRecipes());
+      dispatch(getTypes());
+      setFirstLoad(false);
+    }
+
+    if (!show.length && modified.length) firstPage();
+  }, [firstLoad, dispatch, firstPage, show, modified]);
 
   return (
     <Fragment>
-      <Button type="primary" text="Get Recipes" onClick={handleOnClick} />
-
-      <div className="col-2">
+      <div>
         <Filters />
 
-        {filtered.length ? (
+        {show.length ? (
           <div>
-            <h2>Filtered</h2>
+            <h2>Recipes</h2>
             <span className="f-small">
-              {apiRecipes.length} / {filtered.length}
+              {show.length} / {modified.length}
             </span>
             <div className="grid">
-              {filtered.map((recipe) => (
-                <Card
-                  key={recipe.id}
-                  image={recipe.image}
-                  title={recipe.title}
-                  diets={recipe.diets}
-                  score={recipe.score}
-                  healthScore={recipe.healthScore}
-                />
+              {show.map((recipe) => (
+                <Card key={recipe.id} recipe={recipe} />
               ))}
             </div>
           </div>
         ) : (
           ""
         )}
-
-        {filtered.length ? (
-          ""
-        ) : (
-          <div>
-            <h2>API</h2>
-            <span className="f-small">
-              {apiRecipes.length} / {apiRecipes.length}
-            </span>
-            <div className="grid">
-              {apiRecipes
-                ? apiRecipes.map((recipe) => (
-                    <Card
-                      key={recipe.id}
-                      image={recipe.image}
-                      title={recipe.title}
-                      diets={recipe.diets}
-                      score={recipe.score}
-                      healthScore={recipe.healthScore}
-                    />
-                  ))
-                : ""}
-            </div>
-          </div>
-        )}
       </div>
+
+      <Paginate page={page} />
     </Fragment>
   );
 }

@@ -1,8 +1,14 @@
+// Routes
 export const GET_RECIPES = "GET_RECIPES";
 export const RECIPE_DETAILS = "RECIPE_DETAILS";
 export const DIET_TYPES = "DIET_TYPES";
 export const CREATE_RECIPE = "CREATE_RECIPE";
-export const BY_DIET = "BY_DIET";
+
+// Pagination
+export const PAGE = "PAGE";
+
+// Filters
+export const FILTER = "FILTER";
 
 export function getRecipes(name = "") {
   return (dispatch) =>
@@ -35,6 +41,10 @@ export function createRecipe(data) {
       .then((data) => dispatch({ type: CREATE_RECIPE, payload: data }));
 }
 
-export function byDiet(diet) {
-  return { type: BY_DIET, payload: diet };
+export function filter(filters) {
+  return { type: FILTER, payload: filters };
+}
+
+export function page(number) {
+  return { type: PAGE, payload: number };
 }

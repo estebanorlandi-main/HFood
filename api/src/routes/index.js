@@ -17,8 +17,9 @@ const CreateResponse = (message, results, error) => {
 
 const dbObjFormat = (dbObj) => {
   if (Array.isArray(dbObj)) {
-    if (!dbObj.length) null;
+    if (!dbObj.length) return null;
     return dbObj.map((recipe) => {
+      if (recipe.name) return recipe.name;
       const obj = recipe.toJSON();
       return {
         ...obj,
@@ -80,6 +81,7 @@ router.get("/recipes", async (req, res) => {
       .status(200)
       .json(CreateResponse("Recipes founded", results, null));
   } catch (err) {
+    console.log(err);
     return res.status(404).json(CreateResponse("Recipes not found", null, err));
   }
 });
@@ -106,8 +108,9 @@ router.get("/recipes/:id", async (req, res) => {
 
 router.get("/types", async (req, res) => {
   try {
-    const diets = await Diet.findAll({ raw: true });
-    if (diets.length) return res.status(200).json({ diets });
+    const diets = dbObjFormat(await Diet.findAll({ raw: true }));
+    if (diets.length)
+      return res.status(200).json(CreateResponse("Diets found", diets, null));
 
     const { data: apiData } = await axios.get(complex(""));
     const arrDiets = {};
@@ -127,6 +130,7 @@ router.get("/types", async (req, res) => {
       .status(200)
       .json(CreateResponse("Diets saved", Object.values(arrDiets), null));
   } catch (err) {
+    console.log(err);
     return res
       .status(400)
       .json(CreateResponse("Error creating diets", null, err));

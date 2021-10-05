@@ -96,8 +96,8 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 
 **Pagina inicial**: deben armar una landing page con
 
-- [ ] Alguna imagen de fondo representativa al proyecto
-- [ ] Botón para ingresar al home (`Ruta principal`)
+- [x] Alguna imagen de fondo representativa al proyecto
+- [x] Botón para ingresar al home (`Ruta principal`)
 
 **Ruta principal**: debe contener
 
@@ -168,7 +168,7 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 - [x] **GET /types**:
   - Obtener todos los tipos de dieta posibles
   - En una primera instancia, cuando no exista ninguno, deberán precargar la base de datos con los tipos de datos indicados por spoonacular [acá](https://spoonacular.com/food-api/docs#Diets)
-- [ ] **POST /recipe**:
+- [x] **POST /recipe**:
   - Recibe los datos recolectados desde el formulario controlado de la ruta de creación de recetas por body
   - Crea una receta en la base de datos
 
