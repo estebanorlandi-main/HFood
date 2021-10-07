@@ -14,31 +14,37 @@ export function getRecipes(name = "") {
   return (dispatch) =>
     fetch(`http://localhost:3001/recipes?name=${name}`)
       .then((res) => res.json())
-      .then((data) => dispatch({ type: GET_RECIPES, payload: data }));
+      .then((data) => dispatch({ type: GET_RECIPES, payload: data }))
+      .catch(console.log);
 }
 
 export function getDetails(id) {
   return (dispatch) =>
     fetch(`http://localhost:3001/recipes/${id}`)
       .then((res) => res.json())
-      .then((data) => dispatch({ type: RECIPE_DETAILS, payload: data }));
+      .then((data) => dispatch({ type: RECIPE_DETAILS, payload: data }))
+      .catch(console.log);
 }
 
 export function getTypes() {
   return (dispatch) =>
     fetch(`http://localhost:3001/types`)
       .then((res) => res.json())
-      .then((data) => dispatch({ type: DIET_TYPES, payload: data }));
+      .then((data) => dispatch({ type: DIET_TYPES, payload: data }))
+      .catch(console.log);
 }
 
-export function createRecipe(data) {
+export function createRecipe(body) {
   return (dispatch) =>
     fetch(`http://localhost:3001/recipe`, {
       method: "POST",
-      body: data,
+      mode: "cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     })
       .then((res) => res.json())
-      .then((data) => dispatch({ type: CREATE_RECIPE, payload: data }));
+      .then((data) => dispatch({ type: CREATE_RECIPE, payload: data }))
+      .catch(console.log);
 }
 
 export function filter(filters) {

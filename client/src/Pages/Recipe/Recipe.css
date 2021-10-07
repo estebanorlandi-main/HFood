@@ -1,0 +1,59 @@
+.recipe__image-container > img {
+  width: 100%;
+  max-width: 25em;
+  margin: 0 2em 1em 0;
+}
+
+.recipe__body {
+  margin: 2em 0;
+}
+
+.recipe__scores {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.25em 0 1em 0;
+  gap: 1em;
+}
+
+.recipe__summary {
+  margin-top: 0.5em;
+  line-height: 1.5em;
+}
+
+.recipe__body li {
+  list-style: none;
+  padding: 0.25em 0;
+}
+
+.recipe__steps {
+  display: flex;
+  flex-direction: column;
+}
+.recipe__steps li {
+  position: relative;
+  margin: 0.5em 1em;
+}
+.recipe__steps li::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1em;
+  width: 5px;
+  height: 100%;
+  background-color: var(--c-green);
+}
+
+.recipe__diets {
+  display: flex;
+  padding: 0.5em 0;
+}
+.recipe__diets li {
+  width: max-content;
+  color: #fff;
+  font-size: 0.9rem;
+  background-color: var(--c-blue);
+  padding: 0.5em 1em;
+}
+.recipe__diets li:not(:first-child) {
+  margin-left: 1em;
+}

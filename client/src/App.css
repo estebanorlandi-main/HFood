@@ -28,27 +28,6 @@ main {
   color: #888;
 }
 
-.btn {
-  border: none;
-  border-radius: 0;
-  background-color: transparent;
-  padding: 0.75em 1em;
-}
-
-.btn.primary {
-  background-color: var(--c-green);
-  box-shadow: 0 0.5em 1em transparent;
-  color: #fff;
-  font-size: 0.9rem;
-  transition: all 0.25s ease;
-}
-
-.btn.primary:hover,
-.btn.primary:focus {
-  background-color: var(--c-enfasis);
-  box-shadow: 0 0.5em 1em #04b76255;
-}
-
 .quote {
   font-style: italic;
   font-weight: 300;

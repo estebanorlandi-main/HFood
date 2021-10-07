@@ -1,0 +1,20 @@
+.checkbox > input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox {
+  width: max-content;
+  padding: 0.25em 0.75em;
+  background-color: #fff;
+  color: #aaa;
+  border: 1px solid #bbb;
+  border-radius: 50px;
+  margin: 0.25em 0.25em;
+  transition: all 0.15s;
+}
+
+.active {
+  background-color: #dfd;
+  border: 1px solid #595;
+  color: #595;
+}

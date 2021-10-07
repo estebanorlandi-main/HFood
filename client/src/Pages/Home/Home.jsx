@@ -11,9 +11,11 @@ import Paginate from "../../Components/Paginate/Paginate";
 function Home() {
   const dispatch = useDispatch();
   const [firstLoad, setFirstLoad] = useState(true);
-  const [show, setShow] = useState([]);
 
+  const error = useSelector((state) => state.error);
+  const totalRecipes = useSelector((state) => state.results.length);
   const modified = useSelector((state) => state.modified);
+  const [show, setShow] = useState([]);
 
   const page = (page = 0, perPage = 9) => {
     setShow((oldShow) =>
@@ -38,12 +40,23 @@ function Home() {
     }
 
     if (!show.length && modified.length) firstPage();
-  }, [firstLoad, dispatch, firstPage, show, modified]);
+  }, [firstLoad, dispatch, firstPage, show, modified, totalRecipes]);
+
+  // if modified change go to first page
+  useEffect(() => {
+    firstPage();
+  }, [modified, firstPage]);
 
   return (
     <Fragment>
       <div>
-        <Filters />
+        {error.message ? (
+          <p style={{ paddingTop: "5em" }}>{error.message}</p>
+        ) : (
+          ""
+        )}
+
+        {totalRecipes ? <Filters /> : ""}
 
         {show.length ? (
           <div>
@@ -56,13 +69,12 @@ function Home() {
                 <Card key={recipe.id} recipe={recipe} />
               ))}
             </div>
+            <Paginate page={page} />
           </div>
         ) : (
           ""
         )}
       </div>
-
-      <Paginate page={page} />
     </Fragment>
   );
 }

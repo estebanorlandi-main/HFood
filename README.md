@@ -107,15 +107,15 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
   - Nombre
   - Tipo de dieta (vegetariano, vegano, apto celíaco, etc)
 - [x] Botones/Opciones para filtrar por por tipo de dieta
-- [ ] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las recetas por orden alfabético y por puntuación
-- [ ] Paginado para ir buscando y mostrando las siguientes recetas, 9 recetas por pagina, mostrando las primeros 9 en la primer pagina.
+- [x] Botones/Opciones para ordenar tanto ascendentemente como descendentemente las recetas por orden alfabético y por puntuación
+- [x] Paginado para ir buscando y mostrando las siguientes recetas, 9 recetas por pagina, mostrando las primeros 9 en la primer pagina.
 
 **IMPORTANTE**: Dentro de la Ruta Principal se deben mostrar tanto las recetas traidas desde la API como así también las de la base de datos. Debido a que en la API existen alrededor de 5 mil recetas, por cuestiones de performance pueden tomar la simplificación de obtener y paginar las primeras 100.
 
 **Ruta de detalle de receta**: debe contener
 
-- [ ] Los campos mostrados en la ruta principal para cada receta (imagen, nombre, tipo de plato y tipo de dieta)
-- [ ] Resumen del plato
+- [ ] Los campos mostrados en la ruta principal para cada receta (imagen, nombre, tipo de plato y tipo de dieta) - (mostrar los mismos datos que en Home mas)
+- [x] Resumen del plato
 - [ ] Puntuación
 - [ ] Nivel de "comida saludable"
 - [ ] Paso a paso

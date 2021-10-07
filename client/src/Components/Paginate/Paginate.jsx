@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
-import "./Paginate.css";
+import styles from "./Paginate.module.css";
 
 function Paginate(props) {
   const [currentPage, setCurrentPage] = useState(0);
@@ -14,10 +14,10 @@ function Paginate(props) {
   };
 
   return (
-    <div className="paginate__container">
+    <div className={styles.paginate__container}>
       <button onClick={() => handlePage(0)}>First</button>
       <button onClick={() => handlePage(currentPage - 1)}>Prev</button>
-      <span className="paginate__current">{currentPage + 1}</span>
+      <span className={styles.paginate__current}>{currentPage + 1}</span>
       <button onClick={() => handlePage(currentPage + 1)}>Next</button>
       <button onClick={() => handlePage(Math.floor(totalRecipes / 9))}>
         Last

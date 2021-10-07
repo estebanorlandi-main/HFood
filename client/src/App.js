@@ -5,7 +5,9 @@ import { useLocation } from "react-router-dom";
 import Navbar from "./Components/Navbar/Navbar.jsx";
 
 import Home from "./Pages/Home/Home.jsx";
+import Recipe from "./Pages/Recipe/Recipe.jsx";
 import Landing from "./Pages/Landing/Landing.jsx";
+import Create from "./Pages/Create/Create.jsx";
 
 import "./App.css";
 import bg from "./images/brooke-lark-08bOYnH_r_E-unsplash.jpg";
@@ -22,13 +24,34 @@ function App() {
 
   return (
     <Fragment>
-      <main style={location.pathname === "/" ? LandingBG : {}}>
+      <main
+        style={location.pathname === "/" ? LandingBG : { paddingTop: "5em" }}
+      >
         <div className="container">
           <Switch>
             <Route exact path="/" component={Landing} />
             <Route path="/Home">
               <Navbar />
               <Home />
+            </Route>
+
+            <Route
+              path="/recipe/:id"
+              render={({
+                match: {
+                  params: { id },
+                },
+              }) => (
+                <Fragment>
+                  <Navbar />
+                  <Recipe id={id} />
+                </Fragment>
+              )}
+            />
+
+            <Route path="/create">
+              <Navbar />
+              <Create />
             </Route>
           </Switch>
         </div>

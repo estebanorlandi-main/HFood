@@ -1,15 +1,16 @@
 import { Link } from "react-router-dom";
-import "./Landing.css";
+import Button from "../../Components/Buttons/Buttons";
+import styles from "./Landing.module.css";
 
 function Landing() {
   return (
-    <div className="landing">
-      <div className="landing__head">
-        <h1 className="title">HFood</h1>
+    <div className={styles.landing}>
+      <div className={styles.landing__head}>
+        <h1 className={styles.title}>HFood</h1>
         <p className="quote">"Stay healthy and eat better"</p>
       </div>
-      <Link to="/Home" className="btn home">
-        Home
+      <Link to="/Home">
+        <Button text="Home" />
       </Link>
     </div>
   );

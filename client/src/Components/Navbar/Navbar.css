@@ -46,22 +46,3 @@ nav a {
   font-weight: 500;
   font-size: 1rem;
 }
-
-nav > ul a::after {
-  content: "";
-  position: absolute;
-  bottom: 3px;
-  left: 50%;
-  transform: translate(-50%, 0);
-  height: 2px;
-  width: 1em;
-  background-color: var(--c-green);
-  transition: all 0.25s;
-}
-
-nav > ul a:hover {
-  color: #1e1e1e;
-}
-nav > ul a:hover::after {
-  width: 50%;
-}

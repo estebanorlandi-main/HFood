@@ -14,8 +14,12 @@
 
 .paginate__container button,
 .paginate__current {
-  padding: 0.5em 1em;
-  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5em;
+  height: 3em;
+  font-size: 0.8rem;
 }
 
 .paginate__container button:not(:first-child),

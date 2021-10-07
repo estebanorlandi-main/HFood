@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { filter } from "../../Redux/actions/index";
 
-import Button from "../Buttons/Buttons.jsx";
+import Checkbox from "../Checkbox/Checkbox.jsx";
 
-import "./Filters.css";
+import styles from "./Filters.module.css";
 
 function Filters(props) {
   const dispatch = useDispatch();
@@ -19,10 +19,7 @@ function Filters(props) {
     filters: [],
   });
 
-  useEffect(
-    () => dispatch(filter(inputs)),
-    [inputs, dispatch, inputs.order.by, inputs.order.type]
-  );
+  useEffect(() => dispatch(filter(inputs)), [inputs, dispatch]);
 
   const handleFilter = (e) => {
     const save = !inputs.filters.includes(e.target.name);
@@ -36,7 +33,7 @@ function Filters(props) {
 
   const handleOrder = (e) => {
     let type = inputs.order.type;
-    if (e.target.name !== inputs.order.by) type = 0;
+    if (e.target.name !== inputs.order.by) type = 1;
     else if (inputs.order.type === 0) type = 1;
     else if (inputs.order.type === 1) type = -1;
     else if (inputs.order.type === -1) type = 0;
@@ -51,35 +48,36 @@ function Filters(props) {
   };
 
   return (
-    <div className="filters">
-      <Button
-        type="primary"
-        text="Filter"
-        onClick={() => dispatch(filter(inputs))}
-      />
-
-      <div className="options">
+    <div className={styles.filters}>
+      <h3>Filter By</h3>
+      <div className={styles.byDiet}>
         {diets
-          ? diets.map((diet) => (
-              <label key={diet}>
-                <input
-                  type="checkbox"
-                  name={diet}
-                  onChange={handleFilter}
-                  value={inputs[diet]}
-                />
-                {diet}
-              </label>
+          ? diets.map((diet, i) => (
+              <Checkbox key={i} name={diet} onChange={handleFilter} />
             ))
           : ""}
       </div>
-
-      <button name="score" onClick={handleOrder}>
-        Score
-      </button>
-      <button name="title" onClick={handleOrder}>
-        Title
-      </button>
+      <h3>Order By</h3>
+      <div className={styles.order}>
+        <button name="score" onClick={handleOrder}>
+          {inputs.order.by === "score"
+            ? inputs.order.type === -1
+              ? "Score v"
+              : inputs.order.type === 1
+              ? "Score ^"
+              : "Score"
+            : "Score"}
+        </button>
+        <button name="title" onClick={handleOrder}>
+          {inputs.order.by === "title"
+            ? inputs.order.type === -1
+              ? "Title v"
+              : inputs.order.type === 1
+              ? "Title ^"
+              : "Title"
+            : "Title"}
+        </button>
+      </div>
     </div>
   );
 }

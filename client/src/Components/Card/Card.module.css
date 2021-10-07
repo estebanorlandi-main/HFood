@@ -3,11 +3,12 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 14em;
+  height: 100%;
   border-radius: 0.75em;
   box-shadow: 0 3px 3px #0001;
   overflow: hidden;
   transition: all 0.25s ease;
+  text-overflow: ellipsis;
 }
 
 .from {
@@ -21,10 +22,10 @@
   font-weight: bold;
 }
 
-.from.Database {
+.database {
   background-color: #72a;
 }
-.from.API {
+.api {
   background-color: #a33;
 }
 
@@ -59,8 +60,6 @@
   z-index: 2;
   margin-bottom: 1em;
   transition: all 0.25s;
-  max-height: 1em;
-  overflow-y: hidden;
 }
 
 .card__diets {
