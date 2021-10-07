@@ -51,7 +51,7 @@ function Create() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.formContainer}>
-        <label>
+        <label className={styles.inputContainer}>
           Title
           <input
             name="title"
@@ -60,7 +60,8 @@ function Create() {
             type="text"
           />
         </label>
-        <label>
+
+        <label className={styles.inputContainer}>
           Score
           <input
             name="score"
@@ -69,7 +70,8 @@ function Create() {
             type="number"
           />
         </label>
-        <label>
+
+        <label className={styles.inputContainer}>
           Health Score
           <input
             name="healthScore"
@@ -79,9 +81,14 @@ function Create() {
           />
         </label>
 
-        <textarea name="summary" onChange={handleInputs} value={inputs.summary}>
+        <label className={styles.inputContainer}>
           Summary
-        </textarea>
+          <textarea
+            name="summary"
+            onChange={handleInputs}
+            value={inputs.summary}
+          ></textarea>
+        </label>
 
         <div className={styles.formSection + ` ${styles.diets}`}>
           {diets.length

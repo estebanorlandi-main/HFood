@@ -78,7 +78,7 @@ router.get("/recipes", async (req, res) => {
     if (!dbData && !apiData) throw Error({ message: "Recipes not found :(" });
     if (dbData) results = [...dbData];
     if (apiData) results = [...results, ...apiData];
-    console.log(dbData);
+
     return res
       .status(200)
       .json(CreateResponse("Recipes founded", results, null));
@@ -144,7 +144,6 @@ router.get("/types", async (req, res) => {
 });
 
 router.post("/recipe", async (req, res) => {
-  console.log(req.body);
   const { title, summary, score, healthScore, steps, diets } = req.body;
 
   try {

@@ -15,7 +15,7 @@ export function getRecipes(name = "") {
     fetch(`http://localhost:3001/recipes?name=${name}`)
       .then((res) => res.json())
       .then((data) => dispatch({ type: GET_RECIPES, payload: data }))
-      .catch(console.log);
+      .catch((err) => dispatch({ type: GET_RECIPES, payload: err }));
 }
 
 export function getDetails(id) {

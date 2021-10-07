@@ -2,8 +2,8 @@
   max-width: 30em;
   margin: 1em auto;
   background-color: #fff;
-  padding: 1em 0;
   box-shadow: 0 4px 6px #0002;
+  padding: 0.25em 1em;
 }
 
 .formSection {
@@ -14,4 +14,34 @@
 
 .hidden {
   display: none;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 20em;
+  margin: 1em auto;
+}
+
+.inputContainer > input,
+.inputContainer > textarea {
+  font-size: 1rem;
+  padding: 0.5em;
+  border-radius: 0.25em;
+  border: 1px solid #aaa;
+}
+
+.inputContainer > textarea {
+  resize: vertical;
+  min-height: 1.25rem;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
