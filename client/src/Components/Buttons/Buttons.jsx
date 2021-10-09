@@ -9,6 +9,8 @@ const types = {
 function Buttons(props) {
   return (
     <button
+      name={props.name || ""}
+      type={props.submit ? "submit" : "button"}
       className={`${styles.btn} ${types[props.type]}`}
       onClick={props.onClick}
     >

@@ -13,11 +13,16 @@ function Home() {
   const [firstLoad, setFirstLoad] = useState(true);
 
   const error = useSelector((state) => state.error);
+
   const totalRecipes = useSelector((state) => state.results.length);
+
   const modified = useSelector((state) => state.modified);
   const [show, setShow] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   const page = (page = 0, perPage = 9) => {
+    setCurrentPage(page);
+
     setShow((oldShow) =>
       modified.slice(page * perPage, page * perPage + perPage)
     );
@@ -25,6 +30,7 @@ function Home() {
 
   const firstPage = useCallback(
     (page = 0, perPage = 9) => {
+      setCurrentPage(page);
       setShow((oldShow) =>
         modified.slice(page * perPage, page * perPage + perPage)
       );
@@ -62,14 +68,14 @@ function Home() {
           <div>
             <h2>Recipes</h2>
             <span className="f-small">
-              {show.length} / {modified.length}
+              {(currentPage + 1) * show.length} / {modified.length}
             </span>
             <div className="grid">
               {show.map((recipe) => (
                 <Card key={recipe.id} recipe={recipe} />
               ))}
             </div>
-            <Paginate page={page} />
+            <Paginate page={page} current={currentPage} />
           </div>
         ) : (
           ""

@@ -3,24 +3,63 @@
   flex-direction: column;
   background-color: #f0f0f0;
   padding: 1em;
+  overflow: hidden;
+}
+
+.filters:first-child > button {
+  margin-top: 0.5em;
 }
 
 .byDiet {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   margin: 1em 0;
 }
 
 .order {
-  margin: 0 auto;
-  margin-top: 1em;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
 }
+
 .order button {
+  font-size: 0.8rem;
+}
+
+.input {
+  font-size: 1rem;
+  padding: 0.5em;
+  border-radius: 0.25em;
+  border: 1px solid #aaa;
+}
+
+.input:focus {
+  border: 1px solid #5ad;
+  outline: 1px solid #5ad;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.more {
   border: none;
-  width: 5em;
-  min-width: max-content;
-  background-color: var(--c-blue);
-  color: #fff;
-  padding: 0.75em 1em;
+  width: max-content;
+  text-decoration: underline;
+  color: var(--c-blue);
+}
+
+.more:hover {
+  cursor: pointer;
+  color: #25a;
+}
+
+.more:focus {
+  color: #25a;
 }

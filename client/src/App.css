@@ -33,3 +33,13 @@ main {
   font-weight: 300;
   color: #888;
 }
+
+.inline-childs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+.inline-childs > * {
+  display: inline-flex;
+}

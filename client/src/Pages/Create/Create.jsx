@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+
 import { useSelector, useDispatch } from "react-redux";
 import { getTypes, createRecipe } from "../../Redux/actions/index";
 
@@ -37,6 +38,12 @@ function Create() {
       return;
     }
 
+    if (target.name.match(/^step/)) {
+      const aux = inputs.steps;
+      aux[target.id] = target.value;
+      return setInputs((old) => ({ ...old, steps: aux }));
+    }
+
     setInputs((oldInputs) => ({
       ...oldInputs,
       [target.name]: target.value,
@@ -45,6 +52,14 @@ function Create() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setInputs({
+      title: "",
+      summary: "",
+      score: 0,
+      healthScore: 0,
+      steps: [],
+      diets: [],
+    });
     dispatch(createRecipe(inputs));
   };
 
@@ -61,25 +76,27 @@ function Create() {
           />
         </label>
 
-        <label className={styles.inputContainer}>
-          Score
-          <input
-            name="score"
-            onChange={handleInputs}
-            value={inputs["score"]}
-            type="number"
-          />
-        </label>
+        <div className={styles.inline}>
+          <label className={styles.inputContainer}>
+            Score
+            <input
+              name="score"
+              onChange={handleInputs}
+              value={inputs["score"]}
+              type="number"
+            />
+          </label>
 
-        <label className={styles.inputContainer}>
-          Health Score
-          <input
-            name="healthScore"
-            onChange={handleInputs}
-            value={inputs["healthScore"]}
-            type="number"
-          />
-        </label>
+          <label className={styles.inputContainer}>
+            Health Score
+            <input
+              name="healthScore"
+              onChange={handleInputs}
+              value={inputs["healthScore"]}
+              type="number"
+            />
+          </label>
+        </div>
 
         <label className={styles.inputContainer}>
           Summary
@@ -87,21 +104,43 @@ function Create() {
             name="summary"
             onChange={handleInputs}
             value={inputs.summary}
+            placeholder="Summary of this recipe..."
           ></textarea>
         </label>
 
         <div className={styles.formSection + ` ${styles.diets}`}>
           {diets.length
-            ? diets.map((diet, i) => (
-                <Checkbox onChange={handleInputs} name={diet} key={i} />
-              ))
+            ? diets
+                .sort()
+                .map((diet, i) => (
+                  <Checkbox onChange={handleInputs} name={diet} key={i} />
+                ))
             : ""}
         </div>
 
-        <section className={styles.formSection}>
-          <Button type="secondary" text=" + Add step" />
-        </section>
-        <Button type="primary" text="Submit" />
+        <div className={styles.steps}>
+          {inputs.steps.map((step, i) => (
+            <label className={styles.inputContainer} key={i}>
+              Step {i + 1}
+              <input
+                id={i}
+                name={`step`}
+                onChange={handleInputs}
+                value={inputs.steps[i]}
+              />
+            </label>
+          ))}
+
+          <Button
+            onClick={() =>
+              setInputs((old) => ({ ...old, steps: [...old.steps, ""] }))
+            }
+            type="secondary"
+            text=" + Add step"
+          />
+        </div>
+
+        <Button submit={true} type="primary" text="Submit" />
       </div>
     </form>
   );

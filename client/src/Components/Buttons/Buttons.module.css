@@ -3,8 +3,9 @@
   justify-content: center;
   align-items: center;
 
+  width: 8em;
   min-width: max-content;
-  width: 7em;
+  max-width: 10em;
   height: 3em;
 
   border: none;
@@ -22,9 +23,7 @@
 }
 
 .btn.primary:hover,
-.btn.primary:focus,
-.btn.secondary:hover,
-.btn.secondary:focus {
+.btn.secondary:hover {
   transform: translate(0, -5px);
 }
 

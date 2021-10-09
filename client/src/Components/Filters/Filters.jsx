@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { filter } from "../../Redux/actions/index";
 
 import Checkbox from "../Checkbox/Checkbox.jsx";
+import Button from "../Buttons/Buttons.jsx";
 
 import styles from "./Filters.module.css";
 
@@ -11,7 +12,10 @@ function Filters(props) {
   const dispatch = useDispatch();
   const diets = useSelector((state) => state.diets);
 
+  const [showFilters, setShowFilters] = useState(true);
+
   const [inputs, setInputs] = useState({
+    search: "",
     order: {
       by: null,
       type: 0,
@@ -47,36 +51,66 @@ function Filters(props) {
     }));
   };
 
+  const handleSearch = (e) =>
+    setInputs((old) => ({ ...old, search: e.target.value }));
+
   return (
     <div className={styles.filters}>
-      <h3>Filter By</h3>
-      <div className={styles.byDiet}>
-        {diets
-          ? diets.map((diet, i) => (
-              <Checkbox key={i} name={diet} onChange={handleFilter} />
-            ))
-          : ""}
-      </div>
-      <h3>Order By</h3>
-      <div className={styles.order}>
-        <button name="score" onClick={handleOrder}>
-          {inputs.order.by === "score"
-            ? inputs.order.type === -1
-              ? "Score v"
-              : inputs.order.type === 1
-              ? "Score ^"
-              : "Score"
-            : "Score"}
-        </button>
-        <button name="title" onClick={handleOrder}>
-          {inputs.order.by === "title"
-            ? inputs.order.type === -1
-              ? "Title v"
-              : inputs.order.type === 1
-              ? "Title ^"
-              : "Title"
-            : "Title"}
-        </button>
+      <input
+        className={styles.input}
+        name="search"
+        onChange={handleSearch}
+        type="search"
+        placeholder="Search recipe."
+        autoComplete="off"
+      />
+
+      <button
+        className={styles.more}
+        onClick={() => setShowFilters((old) => !old)}
+      >
+        More filters
+      </button>
+
+      <div className={showFilters ? styles.show : styles.hide}>
+        <h3 style={{ marginTop: "1em" }}>Filter By</h3>
+        <div className={styles.byDiet}>
+          {diets
+            ? diets.map((diet, i) => (
+                <Checkbox key={i} name={diet} onChange={handleFilter} />
+              ))
+            : ""}
+        </div>
+        <div className={styles.order}>
+          <Button
+            name="score"
+            type="primary"
+            onClick={handleOrder}
+            text={
+              inputs.order.by === "score"
+                ? inputs.order.type === -1
+                  ? "Score v"
+                  : inputs.order.type === 1
+                  ? "Score ^"
+                  : "Score"
+                : "Score"
+            }
+          />
+          <Button
+            name="title"
+            type="primary"
+            onClick={handleOrder}
+            text={
+              inputs.order.by === "title"
+                ? inputs.order.type === -1
+                  ? "Title v"
+                  : inputs.order.type === 1
+                  ? "Title ^"
+                  : "Title"
+                : "Title"
+            }
+          />
+        </div>
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import {
   RECIPE_DETAILS,
   FILTER,
   DIET_TYPES,
+  SEARCH,
 } from "../actions/index";
 
 const initialState = {
@@ -45,19 +46,20 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case FILTER:
-      const { order, filters } = action.payload;
-      const { results } = state;
-      if (order.type !== 0) {
-        const sorted = [...results].sort((a, b) => sortBy(a, b, order));
-        return {
-          ...state,
-          modified: filters.length ? filter(sorted, filters) : sorted,
-        };
+      const { order, filters, search } = action.payload;
+
+      let arr = state.results;
+
+      if (search) {
+        const r = new RegExp(`${search.toLowerCase()}`);
+        arr = [...arr].filter((recipe) => recipe.title.toLowerCase().match(r));
       }
-      return {
-        ...state,
-        modified: filters.length ? filter(results, filters) : results,
-      };
+
+      if (filters.length) arr = filter(arr, filters);
+
+      if (order.type !== 0) arr = [...arr].sort((a, b) => sortBy(a, b, order));
+
+      return { ...state, modified: arr };
 
     case RECIPE_DETAILS:
       return { ...state, details: action.payload.results };

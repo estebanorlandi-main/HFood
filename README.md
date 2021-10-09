@@ -114,22 +114,22 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 
 **Ruta de detalle de receta**: debe contener
 
-- [ ] Los campos mostrados en la ruta principal para cada receta (imagen, nombre, tipo de plato y tipo de dieta) - (mostrar los mismos datos que en Home mas)
+- [x] Los campos mostrados en la ruta principal para cada receta (imagen, nombre, tipo de plato y tipo de dieta) - (mostrar los mismos datos que en Home mas)
 - [x] Resumen del plato
-- [ ] Puntuación
-- [ ] Nivel de "comida saludable"
-- [ ] Paso a paso
+- [x] Puntuación
+- [x] Nivel de "comida saludable"
+- [x] Paso a paso
 
 **Ruta de creación de recetas**: debe contener
 
-- [ ] Un formulario **controlado** con los siguientes campos
+- [x] Un formulario **controlado** con los siguientes campos
   - Nombre
   - Resumen del plato
   - Puntuación
   - Nivel de "comida saludable"
   - Paso a paso
-- [ ] Posibilidad de seleccionar/agregar uno o más tipos de dietas
-- [ ] Botón/Opción para crear una nueva receta
+- [x] Posibilidad de seleccionar/agregar uno o más tipos de dietas
+- [x] Botón/Opción para crear una nueva receta
 
 #### Base de datos
 
@@ -161,7 +161,7 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 - [x] **GET /recipes?name="..."**:
   - Obtener un listado de las recetas que contengan la palabra ingresada como query parameter
   - Si no existe ninguna receta mostrar un mensaje adecuado
-- [ ] **GET /recipes/{idReceta}**:
+- [x] **GET /recipes/{idReceta}**:
   - Obtener el detalle de una receta en particular
   - Debe traer solo los datos pedidos en la ruta de detalle de receta
   - Incluir los tipos de dieta asociados

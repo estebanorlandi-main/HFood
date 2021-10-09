@@ -6,21 +6,16 @@
   padding: 0.25em 1em;
 }
 
-.formSection {
-  display: flex;
-  flex-direction: column;
-  margin: 1em 0;
-}
-
-.hidden {
-  display: none;
+.formContainer {
+  width: 80%;
+  margin: 0 auto;
 }
 
 .inputContainer {
   display: flex;
   flex-direction: column;
-  max-width: 20em;
-  margin: 1em auto;
+  font-size: 0.9rem;
+  margin-top: 1.5em;
 }
 
 .inputContainer > input,
@@ -36,12 +31,42 @@
   min-height: 1.25rem;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+.inputContainer > input::-webkit-outer-spin-button,
+.inputContainer > input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type="number"] {
+.inputContainer > input[type="number"] {
   -moz-appearance: textfield;
+  width: 5em;
+}
+
+.inputContainer > input:focus,
+.inputContainer > textarea:focus {
+  border: 1px solid #5ad;
+  outline: 1px solid #5ad;
+}
+
+.inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.diets {
+  margin: 1em 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.formContainer > button {
+  margin: 1em 0;
+  width: 100%;
+}
+
+.steps > button {
+  width: 100%;
+  margin: 1em 0;
 }

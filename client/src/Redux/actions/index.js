@@ -1,14 +1,13 @@
-// Routes
+// Fetch Data
 export const GET_RECIPES = "GET_RECIPES";
 export const RECIPE_DETAILS = "RECIPE_DETAILS";
 export const DIET_TYPES = "DIET_TYPES";
 export const CREATE_RECIPE = "CREATE_RECIPE";
 
-// Pagination
+// Handle Data
 export const PAGE = "PAGE";
-
-// Filters
 export const FILTER = "FILTER";
+export const SEARCH = "SEARCH";
 
 export function getRecipes(name = "") {
   return (dispatch) =>
@@ -53,4 +52,8 @@ export function filter(filters) {
 
 export function page(number) {
   return { type: PAGE, payload: number };
+}
+
+export function search(title) {
+  return { type: SEARCH, payload: title };
 }
