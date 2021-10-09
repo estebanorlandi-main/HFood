@@ -4,7 +4,7 @@ import styles from "./Card.module.css";
 
 function Card({ recipe }) {
   return (
-    <Link to={`/recipe/${recipe.id}`}>
+    <Link className={styles.cardContainer} to={`/recipe/${recipe.id}`}>
       <div className={styles.card}>
         <span
           className={`${styles.from} ${

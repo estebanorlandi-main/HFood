@@ -1,14 +1,18 @@
+.cardContainer {
+  box-shadow: 0 3px 3px #0001;
+  border-radius: 0.75em;
+  overflow: hidden;
+  transition: all 0.25s ease;
+}
+
 .card {
   transform: translateY(0);
   position: relative;
   display: flex;
   flex-direction: column;
   height: 100%;
-  border-radius: 0.75em;
-  box-shadow: 0 3px 3px #0001;
-  overflow: hidden;
-  transition: all 0.25s ease;
   text-overflow: ellipsis;
+  transition: all 0.25s ease;
 }
 
 .from {
@@ -81,11 +85,13 @@
   list-style: none;
 }
 
-.card:hover {
+.cardContainer:hover,
+.cardContainer:focus {
   transform: translateY(-0.5em);
   box-shadow: 0 8px 10px #0002;
 }
 
-.card:hover .card__img {
+.cardContainer:hover .card__img,
+.cardContainer:focus .card__img {
   opacity: 1;
 }
