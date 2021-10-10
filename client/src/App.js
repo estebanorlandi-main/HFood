@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import { Switch, Route } from "react-router";
-import { useLocation } from "react-router-dom";
 
 import Navbar from "./Components/Navbar/Navbar.jsx";
 
@@ -20,8 +19,6 @@ const LandingBG = {
 };
 
 function App() {
-  const location = useLocation();
-
   return (
     <Fragment>
       <Switch>

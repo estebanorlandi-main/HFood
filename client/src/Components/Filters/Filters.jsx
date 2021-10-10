@@ -12,7 +12,7 @@ function Filters(props) {
   const dispatch = useDispatch();
   const diets = useSelector((state) => state.diets);
 
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   const [inputs, setInputs] = useState({
     search: "",

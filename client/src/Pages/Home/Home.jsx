@@ -51,7 +51,7 @@ function Home() {
 
   return (
     <Fragment>
-      {totalRecipes ? <Filters /> : ""}
+      <Filters />
       {show.length ? (
         <div>
           <h2>Recipes</h2>
@@ -66,7 +66,7 @@ function Home() {
           <Paginate page={page} current={currentPage} />
         </div>
       ) : (
-        ""
+        <h4>No recipes</h4>
       )}
     </Fragment>
   );

@@ -76,17 +76,11 @@
   margin: 0.25em 0 0 0;
 }
 
-.toast {
-  position: fixed;
-  bottom: 1em;
-  right: 1em;
-  z-index: 10;
-  background-color: #fdd;
+.inputError {
+  color: #f55 !important;
+}
+.inputError > input,
+.inputError > textarea {
   border: 1px solid #f55;
-  color: #f55;
-  padding: 1em;
-  font-size: 0.9rem;
-  border-radius: 50px;
-  font-weight: bold;
-  cursor: pointer;
+  outline: 1px solid #f55;
 }
