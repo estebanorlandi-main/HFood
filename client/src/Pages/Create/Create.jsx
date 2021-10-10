@@ -47,7 +47,7 @@ function Create() {
     if (target.name.match(/^step/)) {
       const aux = inputs.steps;
       aux[target.id] = {
-        error: null,
+        error: validate(target.name, target.value),
         value: target.value,
       };
       return setInputs((old) => ({ ...old, steps: aux }));
@@ -174,7 +174,7 @@ function Create() {
               Step {i + 1}
               <input
                 id={i}
-                name={`step`}
+                name="step"
                 onChange={handleInputs}
                 value={inputs.steps[i].value}
               />
