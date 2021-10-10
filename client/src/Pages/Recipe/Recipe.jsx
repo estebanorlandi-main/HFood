@@ -8,8 +8,8 @@ import "./Recipe.css";
 function Recipe(props) {
   const dispatch = useDispatch();
   const [firstLoad, setFirstLoad] = useState(true);
+
   const details = useSelector((state) => state.details);
-  console.log(details);
 
   useEffect(() => {
     if (firstLoad) {
@@ -30,15 +30,14 @@ function Recipe(props) {
 
       <div className="recipe__body">
         <h1>{details.title ? details.title : ""}</h1>
-        <div className="recipe__scores">
-          <span className="f-small">
-            Score {details.score !== undefined ? details.score : ""}
-          </span>
-          <span className="f-small">
-            Health Score
-            {details.healthScore !== undefined ? details.healthScore : ""}
-          </span>
-        </div>
+        {details.score !== undefined && details.healthScore !== undefined ? (
+          <div className="recipe__scores">
+            <span className="f-small">Score {details.score}</span>
+            <span className="f-small">Health Score {details.healthScore}</span>
+          </div>
+        ) : (
+          ""
+        )}
 
         {details.summary ? (
           <Fragment>

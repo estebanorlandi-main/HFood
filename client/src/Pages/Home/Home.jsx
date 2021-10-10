@@ -12,8 +12,6 @@ function Home() {
   const dispatch = useDispatch();
   const [firstLoad, setFirstLoad] = useState(true);
 
-  const error = useSelector((state) => state.error);
-
   const totalRecipes = useSelector((state) => state.results.length);
 
   const modified = useSelector((state) => state.modified);
@@ -22,7 +20,6 @@ function Home() {
 
   const page = (page = 0, perPage = 9) => {
     setCurrentPage(page);
-
     setShow((oldShow) =>
       modified.slice(page * perPage, page * perPage + perPage)
     );
@@ -48,39 +45,29 @@ function Home() {
     if (!show.length && modified.length) firstPage();
   }, [firstLoad, dispatch, firstPage, show, modified, totalRecipes]);
 
-  // if modified change go to first page
   useEffect(() => {
     firstPage();
   }, [modified, firstPage]);
 
   return (
     <Fragment>
-      <div>
-        {error.message ? (
-          <p style={{ paddingTop: "5em" }}>{error.message}</p>
-        ) : (
-          ""
-        )}
-
-        {totalRecipes ? <Filters /> : ""}
-
-        {show.length ? (
-          <div>
-            <h2>Recipes</h2>
-            <span className="f-small">
-              {(currentPage + 1) * show.length} / {modified.length}
-            </span>
-            <div className="grid">
-              {show.map((recipe) => (
-                <Card key={recipe.id} recipe={recipe} />
-              ))}
-            </div>
-            <Paginate page={page} current={currentPage} />
+      {totalRecipes ? <Filters /> : ""}
+      {show.length ? (
+        <div>
+          <h2>Recipes</h2>
+          <span className="f-small">
+            {(currentPage + 1) * show.length} / {modified.length}
+          </span>
+          <div className="grid">
+            {show.map((recipe) => (
+              <Card key={recipe.id} recipe={recipe} />
+            ))}
           </div>
-        ) : (
-          ""
-        )}
-      </div>
+          <Paginate page={page} current={currentPage} />
+        </div>
+      ) : (
+        ""
+      )}
     </Fragment>
   );
 }

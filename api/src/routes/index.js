@@ -75,7 +75,7 @@ router.get("/recipes", async (req, res) => {
     const apiData = apiObjFormat(await axios.get(complex(name)));
 
     let results = [];
-    if (!dbData && !apiData) throw Error({ message: "Recipes not found :(" });
+    if (!dbData && !apiData) throw Error({ message: "Recipes not found" });
     if (dbData) results = [...dbData];
     if (apiData) results = [...results, ...apiData];
 
@@ -83,7 +83,7 @@ router.get("/recipes", async (req, res) => {
       .status(200)
       .json(CreateResponse("Recipes founded", results, null));
   } catch (err) {
-    return res.status(404).json(CreateResponse("Recipes not found", null, err));
+    return res.status(404).json({ message: "Something went wrong", err });
   }
 });
 
@@ -107,8 +107,7 @@ router.get("/recipes/:id", async (req, res) => {
 
     return res.status(200).json(CreateResponse("Recipe found", apiData, null));
   } catch (err) {
-    console.log(err);
-    return res.status(404).json(CreateResponse("Recipe not found", null, err));
+    return res.status(404).json({ message: "Recipe not found", err });
   }
 });
 
@@ -136,10 +135,7 @@ router.get("/types", async (req, res) => {
       .status(200)
       .json(CreateResponse("Diets saved", Object.values(arrDiets), null));
   } catch (err) {
-    console.log(err);
-    return res
-      .status(400)
-      .json(CreateResponse("Error creating diets", null, err));
+    return res.status(400).json(err);
   }
 });
 
@@ -178,10 +174,7 @@ router.post("/recipe", async (req, res) => {
       .status(200)
       .json(CreateResponse("Recipe Created", response, null));
   } catch (err) {
-    console.log(err);
-    return res
-      .status(400)
-      .json(CreateResponse("Error creating recipe", null, err));
+    return res.status(400).json(err);
   }
 });
 

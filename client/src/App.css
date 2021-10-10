@@ -43,3 +43,14 @@ main {
 .inline-childs > * {
   display: inline-flex;
 }
+
+.toast {
+  position: fixed;
+  right: 1em;
+  bottom: 1em;
+  padding: 1em;
+  background-color: #fdd;
+  border: 1px solid #f55;
+  color: #f55;
+  cursor: pointer;
+}

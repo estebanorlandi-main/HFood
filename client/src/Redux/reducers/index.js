@@ -3,7 +3,7 @@ import {
   RECIPE_DETAILS,
   FILTER,
   DIET_TYPES,
-  SEARCH,
+  ERROR,
 } from "../actions/index";
 
 const initialState = {
@@ -34,9 +34,12 @@ const sortBy = (a, b, order) => {
 };
 
 export default function rootReducer(state = initialState, action) {
-  if (action.payload && action.payload.error)
-    return { ...state, error: action.payload.error };
-
+  if (
+    action.payload &&
+    action.payload.err &&
+    Object.keys(action.payload.err).length
+  )
+    return { ...initialState, error: action.payload };
   switch (action.type) {
     case GET_RECIPES:
       return {
@@ -66,6 +69,9 @@ export default function rootReducer(state = initialState, action) {
 
     case DIET_TYPES:
       return { ...state, diets: action.payload.results };
+
+    case ERROR:
+      return { ...initialState, error: action.payload };
 
     default:
       return state;
