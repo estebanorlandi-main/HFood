@@ -7,11 +7,10 @@ const { Diet, Recipe } = require("../db");
 
 const { complex, single } = require("./urls");
 
-const CreateResponse = (message, results, error) => {
+const CreateResponse = (message, results) => {
   return {
     message,
     results,
-    error,
   };
 };
 
@@ -75,13 +74,11 @@ router.get("/recipes", async (req, res) => {
     const apiData = apiObjFormat(await axios.get(complex(name)));
 
     let results = [];
-    if (!dbData && !apiData) throw Error({ message: "Recipes not found" });
+    if (!dbData && !apiData) throw Error({ message: "Recipe not found" });
     if (dbData) results = [...dbData];
     if (apiData) results = [...results, ...apiData];
 
-    return res
-      .status(200)
-      .json(CreateResponse("Recipes founded", results, null));
+    return res.status(200).json(CreateResponse("Recipes founded", results));
   } catch (err) {
     return res.status(404).json({ message: "Something went wrong", err });
   }
@@ -105,7 +102,7 @@ router.get("/recipes/:id", async (req, res) => {
     const apiData = apiObjFormat(await axios.get(single(id)));
     if (!apiData) throw Error();
 
-    return res.status(200).json(CreateResponse("Recipe found", apiData, null));
+    return res.status(200).json(CreateResponse("Recipe found", apiData));
   } catch (err) {
     return res.status(404).json({ message: "Recipe not found", err });
   }
@@ -115,7 +112,7 @@ router.get("/types", async (req, res) => {
   try {
     const diets = dbObjFormat(await Diet.findAll({ raw: true }));
     if (diets && diets.length)
-      return res.status(200).json(CreateResponse("Diets found", diets, null));
+      return res.status(200).json(CreateResponse("Diets found", diets));
 
     const { data: apiData } = await axios.get(complex(""));
     const arrDiets = {};
@@ -133,7 +130,7 @@ router.get("/types", async (req, res) => {
     }
     return res
       .status(200)
-      .json(CreateResponse("Diets saved", Object.values(arrDiets), null));
+      .json(CreateResponse("Diets saved", Object.values(arrDiets)));
   } catch (err) {
     return res.status(400).json(err);
   }
@@ -170,9 +167,7 @@ router.post("/recipe", async (req, res) => {
       })
     );
 
-    return res
-      .status(200)
-      .json(CreateResponse("Recipe Created", response, null));
+    return res.status(200).json(CreateResponse("Recipe Created", response));
   } catch (err) {
     return res.status(400).json(err);
   }

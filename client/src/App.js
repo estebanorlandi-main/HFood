@@ -24,38 +24,43 @@ function App() {
 
   return (
     <Fragment>
-      <main
-        style={location.pathname === "/" ? LandingBG : { paddingTop: "5em" }}
-      >
-        <div className="container">
-          <Switch>
-            <Route exact path="/" component={Landing} />
-            <Route path="/Home">
-              <Navbar />
-              <Home />
-            </Route>
+      <Switch>
+        <Route exact path="/">
+          <main style={LandingBG}>
+            <Landing />
+          </main>
+        </Route>
 
-            <Route
-              path="/recipe/:id"
-              render={({
-                match: {
-                  params: { id },
-                },
-              }) => (
-                <Fragment>
-                  <Navbar />
-                  <Recipe id={id} />
-                </Fragment>
-              )}
-            />
+        <Route path="/Home">
+          <Navbar />
+          <main className="container">
+            <Home />
+          </main>
+        </Route>
 
-            <Route path="/create">
+        <Route
+          path="/recipe/:id"
+          render={({
+            match: {
+              params: { id },
+            },
+          }) => (
+            <Fragment>
               <Navbar />
-              <Create />
-            </Route>
-          </Switch>
-        </div>
-      </main>
+              <main className="container">
+                <Recipe id={id} />
+              </main>
+            </Fragment>
+          )}
+        />
+
+        <Route path="/create">
+          <Navbar />
+          <main className="container">
+            <Create />
+          </main>
+        </Route>
+      </Switch>
     </Fragment>
   );
 }
