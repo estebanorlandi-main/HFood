@@ -14,19 +14,42 @@ module.exports = (sequelize) => {
       title: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          is: /^[\w\-\s\,\(\)\:\']{3,64}$/i,
+        },
       },
       summary: {
         type: DataTypes.STRING,
         allowNull: false,
+        validate: {
+          is: /^[\w\-\s\,\(\)\:\'\.]{15,1000}$/i,
+        },
       },
       score: {
         type: DataTypes.INTEGER,
+        validate: {
+          max: 100,
+          min: 0,
+        },
       },
       healthScore: {
         type: DataTypes.INTEGER,
+        validate: {
+          max: 100,
+          min: 0,
+        },
       },
       steps: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+        validate: {
+          validStrings: function (arr) {
+            arr.forEach((str) => {
+              if (!/^[\w\-\s\,\(\)\:\']{3,64}$/i.test(str))
+                throw new Error("Invalid string on array");
+            });
+            return arr;
+          },
+        },
       },
     },
     {
