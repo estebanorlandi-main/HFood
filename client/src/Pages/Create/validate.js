@@ -25,7 +25,7 @@ const scoreValidate = (value) => {
 const stepValidate = (value) => {
   const regex = /^[\w\-\s\,\(\)\:\'\.]{15,1000}$/i;
 
-  if (value.length < 3) return "Min - 3";
+  if (value.length < 15) return "Min - 15";
   if (value > 500) return "Max - 500";
   if (!regex.test(value)) return "Something went wrong";
   return false;

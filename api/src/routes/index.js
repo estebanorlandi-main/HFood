@@ -140,16 +140,17 @@ router.get("/types", async (req, res) => {
 });
 
 router.post("/recipe", async (req, res) => {
-  if (!validate(req.body)) return res.status(400).json(err);
+  if (!validate(req.body)) return res.status(500).json(err);
+
   const { title, summary, score, healthScore, steps, diets } = req.body;
 
   try {
-    const dietsFound = await Diet.findAll({
-      where: { name: { [Op.or]: diets } },
-      include: [Recipe],
-    });
-
-    if (!dietsFound.length) throw Error("Diet not found");
+    const dietsFound = diets.length
+      ? await Diet.findAll({
+          where: { name: { [Op.or]: diets } },
+          include: [Recipe],
+        })
+      : [];
 
     const newRecipe = await Recipe.create(
       {
@@ -162,7 +163,7 @@ router.post("/recipe", async (req, res) => {
       { include: [Diet] }
     );
 
-    await newRecipe.addDiets(dietsFound);
+    if (dietsFound.length) await newRecipe.addDiets(dietsFound);
 
     const response = dbObjFormat(
       await Recipe.findOne({

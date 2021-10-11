@@ -53,4 +53,7 @@
   color: #f55;
 }
 .toast.success {
+  background-color: #dfd;
+  border: 1px solid var(--c-green);
+  color: var(--c-green);
 }

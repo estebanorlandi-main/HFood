@@ -24,7 +24,8 @@ function Create() {
   const diets = useSelector((state) => state.diets);
 
   const [inputs, setInputs] = useState(formModel);
-  const [error, setError] = useState("");
+  const [message, setMessage] = useState({ type: "", value: "" });
+  console.log(inputs.diets);
 
   useEffect(() => {
     if (!diets.length) dispatch(getTypes());
@@ -101,18 +102,22 @@ function Create() {
         diets: inputs.diets,
       };
       dispatch(createRecipe(res));
+      setMessage({ type: "success", value: "Recipe created" });
       setInputs(formModel);
     } else {
-      setError("Some inputs have errors");
+      setMessage({ type: "error", value: "Some inputs have errors" });
       setInputs(aux);
     }
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      {error ? (
-        <span className="toast error" onClick={() => setError("")}>
-          {error}
+      {message.value ? (
+        <span
+          className={`toast ${message.type}`}
+          onClick={() => setMessage({ type: "", value: "" })}
+        >
+          {message.value}
         </span>
       ) : (
         ""
