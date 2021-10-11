@@ -13,9 +13,9 @@ import styles from "./Create.module.css";
 const formModel = {
   title: { error: null, value: "" },
   summary: { error: null, value: "" },
-  score: { erorr: null, value: 0 },
+  score: { error: null, value: 0 },
   healthScore: { error: null, value: 0 },
-  steps: [],
+  steps: [{ error: null, value: "" }],
   diets: [],
 };
 
@@ -44,6 +44,11 @@ function Create() {
   };
 
   const handleInputs = ({ target }) => {
+    target.value =
+      typeof target.value === "string"
+        ? target.value.replace(/\s+/g, " ")
+        : target.value;
+
     if (target.name.match(/^step/)) {
       const aux = inputs.steps;
       aux[target.id] = {
@@ -71,11 +76,18 @@ function Create() {
     for (let key in aux) {
       if (key === "steps") {
         for (let i = 0; i < aux[key].length; i++) {
+          aux[key][i].value = aux[key][i].value.trim().replace(/\s+/g, " ");
           aux[key][i].error = validate("step", aux[key][i].value);
+          if (aux[key][i].error) save = false;
         }
       } else if (key !== "diets") {
+        aux[key].value =
+          typeof aux[key].value === "string"
+            ? aux[key].value.trim().replace(/\s+/g, " ")
+            : aux[key].value;
+
         aux[key].error = validate(key, aux[key].value);
-        if (aux[key].error === null || aux[key].error) save = false;
+        if (aux[key].error) save = false;
       }
     }
 
@@ -89,7 +101,7 @@ function Create() {
         diets: inputs.diets,
       };
       dispatch(createRecipe(res));
-      //setInputs(formModel);
+      setInputs(formModel);
     } else {
       setError("Some inputs have errors");
       setInputs(aux);
@@ -99,7 +111,7 @@ function Create() {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       {error ? (
-        <span className="toast" onClick={() => setError("")}>
+        <span className="toast error" onClick={() => setError("")}>
           {error}
         </span>
       ) : (
@@ -108,7 +120,7 @@ function Create() {
       <div className={styles.formContainer}>
         <label
           className={`${styles.inputContainer} ${
-            error ? styles.inputError : ""
+            inputs.title.error ? styles.inputError : ""
           }`}
         >
           Title
@@ -124,7 +136,11 @@ function Create() {
         </label>
 
         <div className={styles.inline}>
-          <label className={styles.inputContainer}>
+          <label
+            className={`${styles.inputContainer} ${
+              inputs.score.error ? styles.inputError : ""
+            }`}
+          >
             Score
             <input
               name="score"
@@ -134,8 +150,11 @@ function Create() {
             />
             <span className={styles.error}>{inputs.score.error}</span>
           </label>
-
-          <label className={styles.inputContainer}>
+          <label
+            className={`${styles.inputContainer} ${
+              inputs.healthScore.error ? styles.inputError : ""
+            }`}
+          >
             Health Score
             <input
               name="healthScore"
@@ -146,8 +165,11 @@ function Create() {
             <span className={styles.error}>{inputs.healthScore.error}</span>
           </label>
         </div>
-
-        <label className={styles.inputContainer}>
+        <label
+          className={`${styles.inputContainer} ${
+            inputs.summary.error ? styles.inputError : ""
+          }`}
+        >
           Summary
           <textarea
             name="summary"
@@ -170,15 +192,20 @@ function Create() {
 
         <div className={styles.steps}>
           {inputs.steps.map((step, i) => (
-            <label className={styles.inputContainer} key={i}>
+            <label
+              key={i}
+              className={`${styles.inputContainer} ${
+                step.error ? styles.inputError : ""
+              }`}
+            >
               Step {i + 1}
               <input
                 id={i}
                 name="step"
                 onChange={handleInputs}
-                value={inputs.steps[i].value}
+                value={step.value}
               />
-              <span className={styles.error}>{inputs.steps[i].error}</span>
+              <span className={styles.error}>{step.error}</span>
             </label>
           ))}
 

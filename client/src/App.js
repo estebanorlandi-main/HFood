@@ -1,5 +1,7 @@
 import { Fragment } from "react";
 import { Switch, Route } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { removeError } from "./Redux/actions/index";
 
 import Navbar from "./Components/Navbar/Navbar.jsx";
 
@@ -19,8 +21,18 @@ const LandingBG = {
 };
 
 function App() {
+  const apiError = useSelector((state) => state.error);
+  const dispatch = useDispatch();
+
   return (
     <Fragment>
+      {apiError ? (
+        <span onClick={() => dispatch(removeError())} className="toast error">
+          {apiError.message}
+        </span>
+      ) : (
+        ""
+      )}
       <Switch>
         <Route exact path="/">
           <main style={LandingBG}>

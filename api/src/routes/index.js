@@ -6,6 +6,7 @@ const axios = require("axios");
 const { Diet, Recipe } = require("../db");
 
 const { complex, single } = require("./urls");
+const validate = require("./validate");
 
 const CreateResponse = (message, results) => {
   return {
@@ -74,12 +75,14 @@ router.get("/recipes", async (req, res) => {
     const apiData = apiObjFormat(await axios.get(complex(name)));
 
     let results = [];
-    if (!dbData && !apiData) throw Error({ message: "Recipe not found" });
+    if (!dbData && !apiData) throw Error({ message: "Recipes not found" });
     if (dbData) results = [...dbData];
     if (apiData) results = [...results, ...apiData];
 
     return res.status(200).json(CreateResponse("Recipes founded", results));
   } catch (err) {
+    if (err.response && err.response.data)
+      return res.status(402).json({ message: "Daily points limit", err });
     return res.status(404).json({ message: "Something went wrong", err });
   }
 });
@@ -137,6 +140,7 @@ router.get("/types", async (req, res) => {
 });
 
 router.post("/recipe", async (req, res) => {
+  if (!validate(req.body)) return res.status(400).json(err);
   const { title, summary, score, healthScore, steps, diets } = req.body;
 
   try {

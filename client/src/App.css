@@ -45,8 +45,12 @@
   right: 1em;
   bottom: 1em;
   padding: 1em;
+  cursor: pointer;
+}
+.toast.error {
   background-color: #fdd;
   border: 1px solid #f55;
   color: #f55;
-  cursor: pointer;
+}
+.toast.success {
 }

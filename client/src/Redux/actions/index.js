@@ -8,7 +8,6 @@ export const ERROR = "ERROR";
 // Handle Data
 export const PAGE = "PAGE";
 export const FILTER = "FILTER";
-export const SEARCH = "SEARCH";
 
 export function getRecipes(name = "") {
   return (dispatch) =>
@@ -28,8 +27,7 @@ export function getTypes() {
   return (dispatch) =>
     fetch(`http://localhost:3001/types`)
       .then((res) => res.json())
-      .then((data) => dispatch({ type: DIET_TYPES, payload: data }))
-      .catch((err) => dispatch({ type: ERROR, payload: err }));
+      .then((data) => dispatch({ type: DIET_TYPES, payload: data }));
 }
 
 export function createRecipe(body) {
@@ -41,8 +39,7 @@ export function createRecipe(body) {
       body: JSON.stringify(body),
     })
       .then((res) => res.json())
-      .then((data) => dispatch({ type: CREATE_RECIPE, payload: data }))
-      .catch((err) => dispatch({ type: ERROR, payload: err }));
+      .then((data) => dispatch({ type: CREATE_RECIPE, payload: data }));
 }
 
 export function filter(filters) {
@@ -53,6 +50,6 @@ export function page(number) {
   return { type: PAGE, payload: number };
 }
 
-export function search(title) {
-  return { type: SEARCH, payload: title };
+export function removeError() {
+  return { type: ERROR };
 }

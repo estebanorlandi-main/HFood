@@ -10,7 +10,7 @@ const initialState = {
   results: [],
   modified: [],
   details: {},
-  error: {},
+  error: undefined,
   diets: [],
 };
 
@@ -25,12 +25,16 @@ const filter = (arr1, arr2) => {
 };
 
 const sortBy = (a, b, order) => {
+  a[order.by] = a[order.by].toLowerCase();
+  b[order.by] = b[order.by].toLowerCase();
+
   if (order.type === 1) {
-    return a[order.by] < b[order.by];
+    return a[order.by] < b[order.by] ? -1 : 1;
   }
   if (order.type === -1) {
-    return a[order.by] > b[order.by];
+    return a[order.by] > b[order.by] ? -1 : 1;
   }
+  return 0;
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -40,6 +44,7 @@ export default function rootReducer(state = initialState, action) {
     Object.keys(action.payload.err).length
   )
     return { ...initialState, error: action.payload };
+
   switch (action.type) {
     case GET_RECIPES:
       return {
@@ -54,7 +59,7 @@ export default function rootReducer(state = initialState, action) {
       let arr = state.results;
 
       if (search) {
-        const r = new RegExp(`${search.toLowerCase()}`);
+        const r = new RegExp(`${search}`, "i");
         arr = [...arr].filter((recipe) => recipe.title.toLowerCase().match(r));
       }
 
@@ -71,7 +76,7 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, diets: action.payload.results };
 
     case ERROR:
-      return { ...initialState, error: action.payload };
+      return { ...initialState, error: undefined };
 
     default:
       return state;
