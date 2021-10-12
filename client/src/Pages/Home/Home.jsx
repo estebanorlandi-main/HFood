@@ -52,6 +52,7 @@ function Home() {
   return (
     <Fragment>
       <Filters />
+
       {show.length ? (
         <div>
           <h2>Recipes</h2>

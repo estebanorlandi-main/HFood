@@ -1,6 +1,6 @@
 const { Recipe, conn } = require("../../src/db.js");
 
-xdescribe("Recipe model", () => {
+describe("Recipe model", () => {
   before(() =>
     conn.authenticate().catch((err) => {
       console.error("Unable to connect to the database:", err);

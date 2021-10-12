@@ -25,8 +25,10 @@ const filter = (arr1, arr2) => {
 };
 
 const sortBy = (a, b, order) => {
-  a[order.by] = a[order.by].toLowerCase();
-  b[order.by] = b[order.by].toLowerCase();
+  a[order.by] =
+    typeof a[order.by] === "string" ? a[order.by].toLowerCase() : a[order.by];
+  b[order.by] =
+    typeof b[order.by] === "string" ? b[order.by].toLowerCase() : b[order.by];
 
   if (order.type === 1) {
     return a[order.by] < b[order.by] ? -1 : 1;
@@ -64,7 +66,6 @@ export default function rootReducer(state = initialState, action) {
       }
 
       if (filters.length) arr = filter(arr, filters);
-
       if (order.type !== 0) arr = [...arr].sort((a, b) => sortBy(a, b, order));
 
       return { ...state, modified: arr };

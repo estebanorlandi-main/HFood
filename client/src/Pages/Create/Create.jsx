@@ -25,7 +25,6 @@ function Create() {
 
   const [inputs, setInputs] = useState(formModel);
   const [message, setMessage] = useState({ type: "", value: "" });
-  console.log(inputs.diets);
 
   useEffect(() => {
     if (!diets.length) dispatch(getTypes());
@@ -50,7 +49,7 @@ function Create() {
         ? target.value.replace(/\s+/g, " ")
         : target.value;
 
-    if (target.name.match(/^step/)) {
+    if (target.name === "step") {
       const aux = inputs.steps;
       aux[target.id] = {
         error: validate(target.name, target.value),

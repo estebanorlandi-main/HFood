@@ -48,10 +48,11 @@ router.get("/recipes/:id", async (req, res) => {
         await Recipe.findOne({ where: { id }, include: [Diet] })
       );
 
-      if (dbData)
+      if (dbData) {
         return res
           .status(200)
           .json(CreateResponse("Recipe found", dbData, null));
+      }
     }
 
     const apiData = apiObjFormat(await axios.get(single(id)));

@@ -21,8 +21,8 @@ const LandingBG = {
 };
 
 function App() {
-  const apiError = useSelector((state) => state.error);
   const dispatch = useDispatch();
+  const apiError = useSelector((state) => state.error);
 
   return (
     <Fragment>
@@ -33,6 +33,7 @@ function App() {
       ) : (
         ""
       )}
+
       <Switch>
         <Route exact path="/">
           <main style={LandingBG}>
