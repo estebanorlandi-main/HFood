@@ -7,60 +7,12 @@ const { Diet, Recipe } = require("../db");
 
 const { complex, single } = require("./urls");
 const validate = require("./validate");
+const { dbObjFormat, apiObjFormat } = require("./objFormat");
 
 const CreateResponse = (message, results) => {
   return {
     message,
     results,
-  };
-};
-
-const dbObjFormat = (dbObj) => {
-  if (Array.isArray(dbObj)) {
-    if (!dbObj.length) return null;
-    return dbObj.map((recipe) => {
-      if (recipe.name) return recipe.name;
-      const obj = recipe.toJSON();
-      return {
-        ...obj,
-        diets: obj.diets.map((diet) => diet.name),
-        isDB: true,
-      };
-    });
-  }
-
-  if (!Object.keys(dbObj).length) return null;
-  const obj = dbObj.toJSON();
-  return { ...obj, diets: obj.diets.map((diet) => diet.name), isDB: true };
-};
-
-const apiObjFormat = ({ data }) => {
-  if (Array.isArray(data.results)) {
-    const { results } = data;
-    if (!results.length) return null;
-    return results.map((recipe) => ({
-      id: recipe.id,
-      title: recipe.title,
-      image: recipe.image,
-      diets: recipe.diets,
-      score: recipe.spoonacularScore,
-      healthScore: recipe.healthScore,
-      isDB: false,
-    }));
-  }
-
-  if (!Object.keys(data).length) return null;
-  if (data.status === 404) return null;
-
-  const steps = data.analyzedInstructions[0];
-  delete data.analyzedInstructions;
-
-  return {
-    ...data,
-    score: data.spoonacularScore,
-    healthScore: data.healthScore,
-    summary: data.summary.replaceAll(/<\/?[^>]+(>|$)/g, ""),
-    steps: steps ? steps.steps.map(({ step }) => step) : [],
   };
 };
 
@@ -79,7 +31,7 @@ router.get("/recipes", async (req, res) => {
     if (dbData) results = [...dbData];
     if (apiData) results = [...results, ...apiData];
 
-    return res.status(200).json(CreateResponse("Recipes founded", results));
+    return res.status(200).json({ messaage: "Recipes founded", results });
   } catch (err) {
     if (err.response && err.response.data)
       return res.status(402).json({ message: "Daily points limit", err });
@@ -103,7 +55,7 @@ router.get("/recipes/:id", async (req, res) => {
     }
 
     const apiData = apiObjFormat(await axios.get(single(id)));
-    if (!apiData) throw Error();
+    if (!apiData) throw Error("Recipe not found");
 
     return res.status(200).json(CreateResponse("Recipe found", apiData));
   } catch (err) {
