@@ -140,8 +140,10 @@ router.get("/types", async (req, res) => {
 });
 
 router.post("/recipe", async (req, res) => {
-  if (!validate(req.body)) return res.status(500).json(err);
-
+  if (!validate(req.body))
+    return res
+      .status(400)
+      .json({ message: "Invalid Data", err: { status: 400 } });
   const { title, summary, score, healthScore, steps, diets } = req.body;
 
   try {

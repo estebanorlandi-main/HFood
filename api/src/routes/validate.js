@@ -23,7 +23,7 @@ const stepValidate = (value) => {
   return true;
 };
 
-module.exports = async function validate({
+module.exports = function validate({
   title,
   summary,
   score,
