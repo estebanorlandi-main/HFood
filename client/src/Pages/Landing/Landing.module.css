@@ -36,6 +36,7 @@
   width: max-content;
   transition: all 0.5s;
   font-size: 1.25rem;
+  border: 1px solid var(--c-green);
 }
 
 .home::before,
