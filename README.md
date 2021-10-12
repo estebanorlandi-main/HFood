@@ -101,7 +101,7 @@ Se debe desarrollar una aplicación de React/Redux que contenga las siguientes p
 
 **Ruta principal**: debe contener
 
-- [ ] Input de búsqueda para encontrar recetas por nombre
+- [x] Input de búsqueda para encontrar recetas por nombre
 - [x] Área donde se verá el listado de recetas. Deberá mostrar su:
   - Imagen
   - Nombre
@@ -175,5 +175,5 @@ Se debe desarrollar un servidor en Node/Express con las siguientes rutas:
 #### Testing
 
 - [ ] Al menos tener un componente del frontend con sus tests respectivos
-- [ ] Al menos tener una ruta del backend con sus tests respectivos
-- [ ] Al menos tener un modelo de la base de datos con sus tests respectivos.
+- [x] Al menos tener una ruta del backend con sus tests respectivos
+- [x] Al menos tener un modelo de la base de datos con sus tests respectivos.
