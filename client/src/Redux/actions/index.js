@@ -11,21 +11,21 @@ export const FILTER = "FILTER";
 
 export function getRecipes(name = "") {
   return (dispatch) =>
-    fetch(`http://localhost:3001/recipes?name=${name}`)
+    fetch(`http://localhost:3001/recipe?name=${name}`)
       .then((res) => res.json())
       .then((data) => dispatch({ type: GET_RECIPES, payload: data }));
 }
 
 export function getDetails(id) {
   return (dispatch) =>
-    fetch(`http://localhost:3001/recipes/${id}`)
+    fetch(`http://localhost:3001/recipe/${id}`)
       .then((res) => res.json())
       .then((data) => dispatch({ type: RECIPE_DETAILS, payload: data }));
 }
 
 export function getTypes() {
   return (dispatch) =>
-    fetch(`http://localhost:3001/types`)
+    fetch(`http://localhost:3001/diet`)
       .then((res) => res.json())
       .then((data) => dispatch({ type: DIET_TYPES, payload: data }));
 }

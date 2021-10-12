@@ -1,3 +1,15 @@
+// Same response DB - API
+//
+// Object format  {
+//  id: (db - string) - (api - int)
+//  title: string,
+//  image: string,
+//  diets: array,
+//  score: int,
+//  healthScore: int,
+//  isDB: bool,
+// }
+
 const dbObjFormat = (dbObj) => {
   if (Array.isArray(dbObj)) {
     if (!dbObj.length) return null;

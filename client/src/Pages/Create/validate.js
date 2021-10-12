@@ -1,18 +1,18 @@
 const titleValidate = (value) => {
-  const regex = /^[\w\-\s\,\(\)\:\']{3,64}$/i;
+  const r = /^[\w\-\s,():']{3,64}$/i;
 
   if (value.length < 3) return "Min length - 3";
-  if (value.length > 32) return "Max length - 64";
-  if (!regex.test(value)) return "Something went wrong";
+  if (value.length > 64) return "Max length - 64";
+  if (!r.test(value)) return "Invalid characters";
   return false;
 };
 
 const summaryValidate = (value) => {
-  const regex = /^[\w\-\s\,\(\)\:\'\.]{15,1000}$/i;
+  const r = /^[\w\-\s,():']{15,1000}$/i;
 
   if (value.length < 15) return "Min length - 15";
   if (value.length > 1000) return "max length - 1000";
-  if (!regex.test(value)) return "Something went wrong";
+  if (!r.test(value)) return "Invalid characters";
   return false;
 };
 
@@ -23,11 +23,12 @@ const scoreValidate = (value) => {
 };
 
 const stepValidate = (value) => {
-  const regex = /^[\w\-\s\,\(\)\:\'\.]{15,1000}$/i;
+  const r = /^[\w\-\s,():']{3,64}$/i;
 
-  if (value.length < 15) return "Min - 15";
-  if (value > 500) return "Max - 500";
-  if (!regex.test(value)) return "Something went wrong";
+  if (value.length < 3) return "Min - 3";
+  if (value > 64) return "Max - 64";
+  if (!r.test(value)) return "Invalid character";
+
   return false;
 };
 

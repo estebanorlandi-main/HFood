@@ -20,21 +20,21 @@ describe("Recipe routes", () => {
     Recipe.sync({ force: true }).then(() => Recipe.create(recipe))
   );
 
-  describe("GET /recipes", () => {
+  describe("GET /recipe", () => {
     it("status 200", (done) => {
-      agent.get("/recipes").expect(200, done);
+      agent.get("/recipe").expect(200, done);
     }).timeout(5000);
     it("status 404", (done) => {
-      agent.get("/recipes?name=asdfasdfasdfasdf").expect(404, done);
+      agent.get("/recipe?name=asdfasdfasdfasdf").expect(404, done);
     });
   });
 
-  describe("GET /recipes/:id", () => {
+  describe("GET /recipe/:id", () => {
     it("status 200 valid id", (done) => {
-      agent.get("/recipes/716426").expect(200, done);
+      agent.get("/recipe/716426").expect(200, done);
     });
     it("status 404 not valid id", (done) => {
-      agent.get("/recipes/asdfasdfasdf").expect(404, done);
+      agent.get("/recipe/asdfasdfasdf").expect(404, done);
     });
   });
 

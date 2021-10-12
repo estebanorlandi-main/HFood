@@ -1,25 +1,24 @@
 const titleValidate = (value) => {
-  if (value.length < 3) return false;
-  if (value.length > 32) return false;
+  if (!/^[\w\-\s\,\(\)\:\']{3,64}$/i.test(value))
+    throw new Error({ message: "Invalid title" });
   return true;
 };
 
 const summaryValidate = (value) => {
-  if (value.length < 15) return false;
-  if (value.length > 1000) return false;
+  if (!/^[\w\-\s\,\(\)\:\'\.]{15,1000}$/i.test(value))
+    throw new Error({ message: "Invalid summary" });
   return true;
 };
 
 const scoreValidate = (value) => {
-  if (!/[0-9]/.test(value)) return false;
-  if (value < 0) return false;
-  if (value > 100) return false;
+  if (value < 0) throw new Error({ message: "Score is lower than 0" });
+  if (value > 100) throw new Error({ message: "Score is greater than 0" });
   return true;
 };
 
 const stepValidate = (value) => {
-  if (value.length < 3) return false;
-  if (value > 500) return false;
+  if (!/^[\w\-\s\,\(\)\:\']{3,64}$/i.test(value))
+    throw new Error({ message: "Invalid step" });
   return true;
 };
 
