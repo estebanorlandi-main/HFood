@@ -71,7 +71,8 @@ router.post("/", async (req, res) => {
 
   try {
     validate(req.body);
-    const { title, summary, score, healthScore, steps, diets } = req.body;
+    const { title, summary, image, score, healthScore, steps, diets } =
+      req.body;
 
     const dietsFound = diets.length
       ? await Diet.findAll({
@@ -84,6 +85,7 @@ router.post("/", async (req, res) => {
       {
         title,
         summary,
+        image,
         score,
         healthScore,
         steps,

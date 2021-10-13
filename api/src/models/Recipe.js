@@ -18,6 +18,10 @@ module.exports = (sequelize) => {
           is: /^[\w\-\s\,\(\)\:\']{3,64}$/i,
         },
       },
+      image: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       summary: {
         type: DataTypes.STRING,
         allowNull: false,

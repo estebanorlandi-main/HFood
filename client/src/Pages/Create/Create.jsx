@@ -13,6 +13,7 @@ import styles from "./Create.module.css";
 const formModel = {
   title: { error: null, value: "" },
   summary: { error: null, value: "" },
+  image: { error: null, value: "" },
   score: { error: null, value: 0 },
   healthScore: { error: null, value: 0 },
   steps: [{ error: null, value: "" }],
@@ -49,6 +50,15 @@ function Create() {
         ? target.value.replace(/\s+/g, " ")
         : target.value;
 
+    if (target.name === "image") {
+      setInputs((oldInputs) => ({
+        ...oldInputs,
+        [target.name]: {
+          error: null,
+          value: target.value,
+        },
+      }));
+    }
     if (target.name === "step") {
       const aux = inputs.steps;
       aux[target.id] = {
@@ -95,6 +105,7 @@ function Create() {
       const res = {
         title: inputs.title.value,
         summary: inputs.summary.value,
+        image: inputs.image.value,
         score: inputs.score.value,
         healthScore: inputs.healthScore.value,
         steps: inputs.steps.map((step) => step.value),
@@ -137,6 +148,23 @@ function Create() {
             autoFocus={true}
           />
           <span className={styles.error}>{inputs.title.error}</span>
+        </label>
+
+        <label
+          className={`${styles.inputContainer} ${
+            inputs.title.error ? styles.inputError : ""
+          }`}
+        >
+          Image
+          <input
+            name="image"
+            onChange={handleInputs}
+            value={inputs.image.value}
+            type="text"
+            autoComplete="off"
+            autoFocus={true}
+          />
+          <span className={styles.error}>{inputs.image.error}</span>
         </label>
 
         <div className={styles.inline}>
