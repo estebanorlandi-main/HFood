@@ -27,6 +27,8 @@ function Create() {
   const [inputs, setInputs] = useState(formModel);
   const [message, setMessage] = useState({ type: "", value: "" });
 
+  const [section, setSection] = useState(0);
+
   useEffect(() => {
     if (!diets.length) dispatch(getTypes());
   }, [diets, dispatch]);
@@ -132,130 +134,151 @@ function Create() {
       ) : (
         ""
       )}
-      <div className={styles.formContainer}>
-        <label
-          className={`${styles.inputContainer} ${
-            inputs.title.error ? styles.inputError : ""
-          }`}
-        >
-          Title
-          <input
-            name="title"
-            onChange={handleInputs}
-            value={inputs.title.value}
-            type="text"
-            autoComplete="off"
-            autoFocus={true}
-          />
-          <span className={styles.error}>{inputs.title.error}</span>
-        </label>
-
-        <label
-          className={`${styles.inputContainer} ${
-            inputs.title.error ? styles.inputError : ""
-          }`}
-        >
-          Image
-          <input
-            name="image"
-            onChange={handleInputs}
-            value={inputs.image.value}
-            type="text"
-            autoComplete="off"
-            autoFocus={true}
-          />
-          <span className={styles.error}>{inputs.image.error}</span>
-        </label>
-
-        <div className={styles.inline}>
+      <div id="container" className={styles.formContainer}>
+        <section className={section === 0 ? styles.show : styles.hide}>
           <label
             className={`${styles.inputContainer} ${
-              inputs.score.error ? styles.inputError : ""
+              inputs.title.error ? styles.inputError : ""
             }`}
           >
-            Score
+            Title
             <input
-              name="score"
+              name="title"
               onChange={handleInputs}
-              value={inputs.score.value}
-              type="number"
+              value={inputs.title.value}
+              type="text"
+              autoComplete="off"
+              autoFocus={true}
             />
-            <span className={styles.error}>{inputs.score.error}</span>
+            <span className={styles.error}>{inputs.title.error}</span>
           </label>
+
           <label
             className={`${styles.inputContainer} ${
-              inputs.healthScore.error ? styles.inputError : ""
+              inputs.title.error ? styles.inputError : ""
             }`}
           >
-            Health Score
+            Image
             <input
-              name="healthScore"
+              name="image"
               onChange={handleInputs}
-              value={inputs.healthScore.value}
-              type="number"
+              value={inputs.image.value}
+              type="text"
+              autoComplete="off"
             />
-            <span className={styles.error}>{inputs.healthScore.error}</span>
+            <span className={styles.error}>{inputs.image.error}</span>
           </label>
-        </div>
-        <label
-          className={`${styles.inputContainer} ${
-            inputs.summary.error ? styles.inputError : ""
-          }`}
-        >
-          Summary
-          <textarea
-            name="summary"
-            onChange={handleInputs}
-            value={inputs.summary.value}
-            placeholder="Summary of this recipe..."
-          ></textarea>
-          <span className={styles.error}>{inputs.summary.error}</span>
-        </label>
+        </section>
 
-        <div className={styles.formSection + ` ${styles.diets}`}>
-          {diets.length
-            ? diets
-                .sort()
-                .map((diet, i) => (
-                  <Checkbox onChange={handleCheckbox} name={diet} key={i} />
-                ))
-            : ""}
-        </div>
-
-        <div className={styles.steps}>
-          {inputs.steps.map((step, i) => (
+        <section className={section === 1 ? styles.show : styles.hide}>
+          <div className={styles.inline}>
             <label
-              key={i}
               className={`${styles.inputContainer} ${
-                step.error ? styles.inputError : ""
+                inputs.score.error ? styles.inputError : ""
               }`}
             >
-              Step {i + 1}
+              Score
               <input
-                id={i}
-                name="step"
+                name="score"
                 onChange={handleInputs}
-                value={step.value}
+                value={inputs.score.value}
+                type="number"
               />
-              <span className={styles.error}>{step.error}</span>
+              <span className={styles.error}>{inputs.score.error}</span>
             </label>
-          ))}
+            <label
+              className={`${styles.inputContainer} ${
+                inputs.healthScore.error ? styles.inputError : ""
+              }`}
+            >
+              Health Score
+              <input
+                name="healthScore"
+                onChange={handleInputs}
+                value={inputs.healthScore.value}
+                type="number"
+              />
+              <span className={styles.error}>{inputs.healthScore.error}</span>
+            </label>
+          </div>
+          <label
+            className={`${styles.inputContainer} ${
+              inputs.summary.error ? styles.inputError : ""
+            }`}
+          >
+            Summary
+            <textarea
+              name="summary"
+              onChange={handleInputs}
+              value={inputs.summary.value}
+              placeholder="Summary of this recipe..."
+            ></textarea>
+            <span className={styles.error}>{inputs.summary.error}</span>
+          </label>
+        </section>
 
-          <Button
-            onClick={() =>
-              inputs.steps.length < 10
-                ? setInputs((old) => ({
-                    ...old,
-                    steps: [...old.steps, { error: null, value: "" }],
-                  }))
-                : ""
-            }
-            type="secondary"
-            text=" + Add step"
-          />
+        <section className={section === 2 ? styles.show : styles.hide}>
+          <div className={styles.diets}>
+            {diets.length
+              ? diets
+                  .sort()
+                  .map((diet, i) => (
+                    <Checkbox onChange={handleCheckbox} name={diet} key={i} />
+                  ))
+              : ""}
+          </div>
+        </section>
+
+        <section className={section === 3 ? styles.show : styles.hide}>
+          <div className={styles.steps}>
+            {inputs.steps.map((step, i) => (
+              <label
+                key={i}
+                className={`${styles.inputContainer} ${
+                  step.error ? styles.inputError : ""
+                }`}
+              >
+                Step {i + 1}
+                <input
+                  id={i}
+                  name="step"
+                  onChange={handleInputs}
+                  value={step.value}
+                />
+                <span className={styles.error}>{step.error}</span>
+              </label>
+            ))}
+
+            <Button
+              onClick={() =>
+                inputs.steps.length < 10
+                  ? setInputs((old) => ({
+                      ...old,
+                      steps: [...old.steps, { error: null, value: "" }],
+                    }))
+                  : ""
+              }
+              type="secondary"
+              text=" + Add step"
+            />
+          </div>
+          <button type="submit">Submit</button>
+        </section>
+
+        <div className={styles.sectionButtons}>
+          <button
+            onClick={() => setSection((old) => (old > 0 ? old - 1 : old))}
+            type="button"
+          >
+            {"<"}
+          </button>
+          <button
+            onClick={() => setSection((old) => (old < 3 ? old + 1 : old))}
+            type="button"
+          >
+            {">"}
+          </button>
         </div>
-
-        <Button submit={true} type="primary" text="Submit" />
       </div>
     </form>
   );

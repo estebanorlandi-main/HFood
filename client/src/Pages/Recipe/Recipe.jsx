@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { getDetails } from "../../Redux/actions/index";
 
-import "./Recipe.css";
+import styles from "./Recipe.module.css";
 
 function Recipe(props) {
   const dispatch = useDispatch();
@@ -19,19 +19,19 @@ function Recipe(props) {
   }, [firstLoad, props, dispatch]);
 
   return (
-    <div>
+    <div className={styles.recipe}>
       {details.image ? (
-        <div className="recipe__image-container">
+        <div className={styles.recipe__image}>
           <img src={details.image} alt={details.title} />
         </div>
       ) : (
         ""
       )}
 
-      <div className="recipe__body">
+      <div className={styles.recipe__body}>
         <h1>{details.title ? details.title : ""}</h1>
         {details.score !== undefined && details.healthScore !== undefined ? (
-          <div className="recipe__scores">
+          <div className={styles.recipe__scores}>
             <span className="f-small">Score {details.score}</span>
             <span className="f-small">Health Score {details.healthScore}</span>
           </div>
@@ -42,7 +42,7 @@ function Recipe(props) {
         {details.summary ? (
           <Fragment>
             <h3> Summary </h3>
-            <p className="recipe__summary">{details.summary}</p>
+            <p className={styles.recipe__summary}>{details.summary}</p>
           </Fragment>
         ) : (
           ""
@@ -52,7 +52,7 @@ function Recipe(props) {
           <Fragment>
             <br />
             <h3> Steps </h3>
-            <ul className="recipe__steps">
+            <ul className={styles.recipe__steps}>
               {details.steps.map((step, i) => (
                 <li key={i}>
                   <p>{step}</p>
@@ -68,9 +68,9 @@ function Recipe(props) {
           <Fragment>
             <br />
             <h3> Diets </h3>
-            <ul className="recipe__diets">
+            <ul className={styles.recipe__diets}>
               {details.diets.map((diet) => (
-                <li key={diet} className="">
+                <li key={diet} className={styles.recipe__diet}>
                   {diet}
                 </li>
               ))}

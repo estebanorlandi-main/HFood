@@ -1,0 +1,33 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  margin: 7em auto;
+  gap: 1em;
+}
+
+.dot {
+  height: 0.75em;
+  width: 0.75em;
+  background-color: var(--c-green);
+  box-shadow: 0 0.5em 1em var(--c-green);
+  border-radius: 100%;
+}
+
+.dot1 {
+  transform: translateY(0);
+  animation: jump 0.75s 0.1s ease-in-out forwards infinite;
+}
+.dot2 {
+  transform: translateY(0);
+  animation: jump 0.75s 0.2s ease-in-out forwards infinite;
+}
+.dot3 {
+  transform: translateY(0);
+  animation: jump 0.75s 0.3s ease-in-out forwards infinite;
+}
+
+@keyframes jump {
+  50% {
+    transform: translateY(-1em);
+  }
+}

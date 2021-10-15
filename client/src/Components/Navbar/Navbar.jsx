@@ -2,24 +2,19 @@ import { Link } from "react-router-dom";
 
 import "./Navbar.css";
 
-function Navbar() {
+function Navbar(props) {
   return (
     <header>
       <nav className="container">
         <Link className="brand" to="/">
-          <i className="fas fa-home"></i>
-          <span>HFood</span>
+          HFood
         </Link>
         <ul>
           <li>
-            <Link to="/Home">
-              <i className="fas fa-list"></i> <span>Home</span>
-            </Link>
+            <Link to="/Home">Home</Link>
           </li>
           <li>
-            <Link to="/create">
-              <i className="fas fa-plus"></i> <span>Create</span>
-            </Link>
+            <button onClick={props.onClick}>Create</button>
           </li>
         </ul>
       </nav>

@@ -3,11 +3,13 @@ import { Fragment, useState, useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecipes, getTypes } from "../../Redux/actions/index";
 
+import Loader from "../../Components/Loader/Loader.jsx";
 import Filters from "../../Components/Filters/Filters.jsx";
 import Card from "../../Components/Card/Card.jsx";
 
 import Paginate from "../../Components/Paginate/Paginate";
 
+import style from "./Home.module.css";
 function Home() {
   const dispatch = useDispatch();
   const [firstLoad, setFirstLoad] = useState(true);
@@ -20,17 +22,13 @@ function Home() {
 
   const page = (page = 0, perPage = 9) => {
     setCurrentPage(page);
-    setShow((oldShow) =>
-      modified.slice(page * perPage, page * perPage + perPage)
-    );
+    setShow(modified.slice(page * perPage, page * perPage + perPage));
   };
 
   const firstPage = useCallback(
     (page = 0, perPage = 9) => {
       setCurrentPage(page);
-      setShow((oldShow) =>
-        modified.slice(page * perPage, page * perPage + perPage)
-      );
+      setShow(modified.slice(page * perPage, page * perPage + perPage));
     },
     [modified]
   );
@@ -50,26 +48,31 @@ function Home() {
   }, [modified, firstPage]);
 
   return (
-    <Fragment>
+    <div className={style.grid}>
       <Filters />
 
-      {show.length ? (
-        <div>
-          <h2>Recipes</h2>
-          <span className="f-small">
-            {(currentPage + 1) * show.length} / {modified.length}
-          </span>
-          <div className="grid">
-            {show.map((recipe) => (
-              <Card key={recipe.id} recipe={recipe} />
-            ))}
-          </div>
-          <Paginate page={page} current={currentPage} />
-        </div>
-      ) : (
-        <h4>No recipes</h4>
-      )}
-    </Fragment>
+      <div style={{ padding: "1em 2em" }}>
+        {show.length ? (
+          <Fragment>
+            <Paginate page={page} current={currentPage} />
+
+            <h2>Recipes</h2>
+            <span className="f-small">
+              {(currentPage + 1) * show.length} / {modified.length}
+            </span>
+            <div className="grid">
+              {show.map((recipe) => (
+                <Card key={recipe.id} recipe={recipe} />
+              ))}
+            </div>
+          </Fragment>
+        ) : totalRecipes === 0 ? (
+          <Loader />
+        ) : (
+          ""
+        )}
+      </div>
+    </div>
   );
 }
 

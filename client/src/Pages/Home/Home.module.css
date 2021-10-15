@@ -1,0 +1,10 @@
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: 15em auto;
+}
+@media (max-width: 33em) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(14em, 1fr));
+  }
+}

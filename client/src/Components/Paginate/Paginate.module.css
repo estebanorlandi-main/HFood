@@ -2,11 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 2em 0;
 }
 
 .paginate__container button {
-  background-color: var(--c-blue);
+  background-color: var(--c-green);
   color: #fff;
   border: none;
   border-radius: 0;
@@ -29,5 +28,5 @@
 
 .paginate__container button:hover {
   cursor: pointer;
-  background-color: var(--c-dark-blue);
+  background-color: #050;
 }

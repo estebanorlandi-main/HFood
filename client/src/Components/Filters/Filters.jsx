@@ -4,15 +4,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { filter } from "../../Redux/actions/index";
 
 import Checkbox from "../Checkbox/Checkbox.jsx";
-import Button from "../Buttons/Buttons.jsx";
 
 import styles from "./Filters.module.css";
 
 function Filters(props) {
   const dispatch = useDispatch();
   const diets = useSelector((state) => state.diets);
-
-  const [showFilters, setShowFilters] = useState(false);
 
   const [inputs, setInputs] = useState({
     search: "",
@@ -56,6 +53,7 @@ function Filters(props) {
 
   return (
     <div className={styles.filters}>
+      <button className={styles.hide}>X</button>
       <input
         className={styles.input}
         name="search"
@@ -65,53 +63,67 @@ function Filters(props) {
         autoComplete="off"
       />
 
-      <button
-        className={styles.more}
-        onClick={() => setShowFilters((old) => !old)}
-      >
-        More filters
-      </button>
-
-      <div className={showFilters ? styles.show : styles.hide}>
-        <h3 style={{ marginTop: "1em" }}>Filter By</h3>
-        <div className={styles.byDiet}>
-          {diets
-            ? diets.map((diet, i) => (
-                <Checkbox key={i} name={diet} onChange={handleFilter} />
-              ))
-            : ""}
-        </div>
-        <div className={styles.order}>
-          <Button
-            name="score"
-            type="primary"
-            onClick={handleOrder}
-            text={
-              inputs.order.by === "score"
-                ? inputs.order.type === -1
-                  ? "Score v"
-                  : inputs.order.type === 1
-                  ? "Score ^"
-                  : "Score"
-                : "Score"
-            }
-          />
-          <Button
-            name="title"
-            type="primary"
-            onClick={handleOrder}
-            text={
-              inputs.order.by === "title"
-                ? inputs.order.type === -1
-                  ? "Title v"
-                  : inputs.order.type === 1
-                  ? "Title ^"
-                  : "Title"
-                : "Title"
-            }
-          />
-        </div>
+      <div className={styles.order}>
+        <button
+          className={
+            styles.order__btn +
+            ` ${
+              inputs.order.by === "score" && inputs.order.type !== 0
+                ? styles.btn__active
+                : ""
+            }`
+          }
+          name="score"
+          type="button"
+          onClick={handleOrder}
+        >
+          {inputs.order.by === "score"
+            ? inputs.order.type === -1
+              ? "0-100 v"
+              : inputs.order.type === 1
+              ? "0-100 ^"
+              : "0-100"
+            : "0-100"}
+        </button>
+        <button
+          className={
+            styles.order__btn +
+            ` ${
+              inputs.order.by === "title" && inputs.order.type !== 0
+                ? styles.btn__active
+                : ""
+            }`
+          }
+          name="title"
+          type="button"
+          onClick={handleOrder}
+        >
+          {inputs.order.by === "title"
+            ? inputs.order.type === -1
+              ? "A-Z v"
+              : inputs.order.type === 1
+              ? "A-Z ^"
+              : "A-Z"
+            : "A-Z"}
+        </button>
       </div>
+
+      <h3>Filter By</h3>
+      <ul className={styles.byDiet}>
+        {diets
+          ? diets.map((diet, i) => (
+              <li>
+                <Checkbox
+                  key={i}
+                  name={diet}
+                  onChange={handleFilter}
+                  style={styles.checkbox}
+                  styleActive={styles.active}
+                />
+              </li>
+            ))
+          : ""}
+      </ul>
     </div>
   );
 }

@@ -13,19 +13,19 @@ function Paginate(props) {
   return (
     <div className={styles.paginate__container}>
       <button onClick={() => handlePage(0)}>
-        <i className="fas fa-angle-double-left"></i>
+        <span className="">{"<<"}</span>
       </button>
       <button onClick={() => handlePage(props.current - 1)}>
-        <i className="fas fa-chevron-left"></i>
+        <span className="">{"<"}</span>
       </button>
 
       <span className={styles.paginate__current}>{props.current + 1}</span>
 
       <button onClick={() => handlePage(props.current + 1)}>
-        <i className="fas fa-chevron-right"></i>
+        <span className="">{">"}</span>
       </button>
       <button onClick={() => handlePage(Math.floor(totalRecipes / 9))}>
-        <i className="fas fa-angle-double-right"></i>
+        <span className="">{">>"}</span>
       </button>
     </div>
   );

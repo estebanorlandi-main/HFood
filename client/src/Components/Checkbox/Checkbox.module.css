@@ -1,31 +1,5 @@
-.checkbox {
-  position: relative;
-  width: max-content;
-  padding: 0.25em 0.75em;
-  background-color: #fff;
-  color: #aaa;
-  border: 1px solid #bbb;
-  border-radius: 50px;
-  margin: 0.25em 0.25em;
-  transition: all 0.15s;
-}
-
-.checkbox > input[type="checkbox"] {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
-
 .active {
   background-color: #dfd;
   border: 1px solid #595;
   color: #595;
-}
-
-.checkbox:hover,
-.checkbox:focus-within {
-  background-color: #5a5;
-  border: 1px solid #595;
-  color: #fff;
 }

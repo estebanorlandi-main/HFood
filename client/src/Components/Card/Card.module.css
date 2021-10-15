@@ -16,28 +16,13 @@
   transition: all 0.25s ease;
 }
 
-.from {
-  position: absolute;
-  z-index: 2;
-  top: 0;
-  left: 1em;
-  padding: 1em;
-  color: #fff;
-  transition: all 0.25s;
-  font-weight: bold;
-}
-
-.database {
-  background-color: #72a;
-}
-.api {
-  background-color: #a33;
-}
-
 .card__img {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 12em;
   background-color: #ccc;
   color: transparent;
-  min-height: 12em;
   opacity: 0.75;
   transition: all 0.25s;
 }
@@ -61,7 +46,6 @@
 .card__title {
   color: #333;
   font-size: 1rem;
-  text-overflow: ellipsis;
   z-index: 2;
   margin-bottom: 1em;
   transition: all 0.25s;
@@ -79,7 +63,7 @@
 .diet {
   font-size: 0.8rem;
   margin: 0.25em;
-  background-color: #1eaeae;
+  background-color: var(--c-dark-green);
   padding: 2px 10px;
   color: #fff;
   border-radius: 50px;

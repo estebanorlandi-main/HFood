@@ -1,9 +1,10 @@
-.recipe__image-container > img {
-  width: 100%;
-  max-width: 25em;
-  margin: 0 2em 1em 0;
+.recipe {
+  width: 85vw;
+  margin: 0 auto;
 }
-
+.recipe__image {
+  height: max-content;
+}
 .recipe__body {
   margin: 2em 0;
 }
@@ -51,7 +52,7 @@
   width: max-content;
   color: #fff;
   font-size: 0.9rem;
-  background-color: var(--c-blue);
+  background-color: var(--c-green);
   padding: 0.5em 1em;
 }
 .recipe__diets li:not(:first-child) {

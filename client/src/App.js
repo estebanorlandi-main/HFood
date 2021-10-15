@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Switch, Route } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { removeError } from "./Redux/actions/index";
@@ -24,6 +24,8 @@ function App() {
   const dispatch = useDispatch();
   const apiError = useSelector((state) => state.error);
 
+  const [handleForm, setHandleForm] = useState(false);
+
   return (
     <Fragment>
       {apiError ? (
@@ -42,8 +44,9 @@ function App() {
         </Route>
 
         <Route path="/Home">
-          <Navbar />
+          <Navbar onClick={() => setHandleForm((old) => !old)} />
           <main className="container">
+            {handleForm ? <Create /> : ""}
             <Home />
           </main>
         </Route>
@@ -63,13 +66,6 @@ function App() {
             </Fragment>
           )}
         />
-
-        <Route path="/create">
-          <Navbar />
-          <main className="container">
-            <Create />
-          </main>
-        </Route>
       </Switch>
     </Fragment>
   );

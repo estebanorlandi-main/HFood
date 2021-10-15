@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import styles from "./Checkbox.module.css";
+import style from "./Checkbox.module.css";
 
 function Checkbox(props) {
   const controlled = props.value ? true : false;
@@ -12,11 +12,7 @@ function Checkbox(props) {
   };
 
   return (
-    <label
-      className={`${styles.checkbox} ${
-        props.value || state ? styles.active : ""
-      }`}
-    >
+    <label className={`${props.style} ${state ? props.styleActive : ""}`}>
       <input
         onChange={handleChange}
         name={props.name}
