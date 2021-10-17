@@ -13,6 +13,23 @@
   color: #1e1e1e;
 }
 
+.attribute {
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  font-weight: 300;
+}
+.light .attribute > a {
+  color: #1e1e1e;
+  font-weight: 500;
+  text-decoration: underline;
+}
+.dark .attribute > a {
+  color: #fff;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
 .mt-2 {
   margin-top: 2em;
 }
@@ -63,12 +80,12 @@
   cursor: pointer;
 }
 .toast.error {
-  background-color: #fdd;
+  background-color: #f551;
   border: 1px solid #f55;
   color: #f55;
 }
 .toast.success {
-  background-color: #dfd;
+  background-color: #5f51;
   border: 1px solid var(--c-green);
   color: var(--c-green);
 }

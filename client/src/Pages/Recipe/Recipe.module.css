@@ -2,8 +2,13 @@
   width: 85vw;
   margin: 0 auto;
 }
-.recipe__image {
-  height: max-content;
+.recipe__image > img {
+  display: block;
+  width: 100%;
+  height: 25em;
+  overflow-y: hidden;
+  object-fit: cover;
+  object-position: center;
 }
 .recipe__body {
   padding: 2em 0;

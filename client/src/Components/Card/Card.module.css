@@ -18,9 +18,8 @@
 
 .card__img {
   display: block;
-  width: 100%;
-  height: auto;
-  min-height: 12em;
+  max-height: 10em;
+  object-fit: cover;
   background-color: #ccc;
   color: transparent;
   opacity: 0.75;

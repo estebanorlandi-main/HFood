@@ -3,6 +3,7 @@ import {
   RECIPE_DETAILS,
   FILTER,
   DIET_TYPES,
+  CREATE_RECIPE,
   ERROR,
   THEME,
 } from "../actions/index";
@@ -14,6 +15,7 @@ const initialState = {
   error: undefined,
   diets: [],
   theme: window.matchMedia("(prefers-color-scheme: dark)").matches,
+  created: false,
 };
 
 const filter = (arr1, arr2) => {
@@ -81,8 +83,14 @@ export default function rootReducer(state = initialState, action) {
     case ERROR:
       return { ...state, error: undefined };
 
+    case CREATE_RECIPE:
+      return { ...state, created: action.payload };
+    case "CREATED":
+      return { ...state, created: false };
+
     case THEME:
       return { ...state, theme: action.payload };
+
     default:
       return state;
   }

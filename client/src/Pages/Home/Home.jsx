@@ -15,6 +15,7 @@ function Home() {
   const [firstLoad, setFirstLoad] = useState(true);
 
   const totalRecipes = useSelector((state) => state.results.length);
+  const created = useSelector((state) => state.created);
 
   const modified = useSelector((state) => state.modified);
   const [show, setShow] = useState([]);
@@ -50,6 +51,13 @@ function Home() {
   useEffect(() => {
     firstPage();
   }, [modified, firstPage]);
+
+  useEffect(() => {
+    if (created) {
+      dispatch(getRecipes());
+      dispatch({ type: "CREATED", payload: false });
+    }
+  }, [created]);
 
   return (
     <div className={style.grid}>

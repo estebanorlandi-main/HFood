@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
-import { getTypes, createRecipe } from "../../Redux/actions/index";
+import { getTypes, createRecipe, getRecipes } from "../../Redux/actions/index";
 
 import Checkbox from "../../Components/Checkbox/Checkbox.jsx";
 
@@ -113,6 +113,7 @@ function Create() {
         diets: inputs.diets,
       };
       dispatch(createRecipe(res));
+      dispatch(getRecipes(""));
       setMessage({ type: "success", value: "Recipe created" });
       setInputs(formModel);
     } else {

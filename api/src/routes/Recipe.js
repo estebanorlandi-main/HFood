@@ -104,9 +104,11 @@ router.post("/", async (req, res) => {
 
     return res
       .status(200)
-      .json({ message: "Recipe Created", results: response });
+      .json({ message: "Recipe Created", results: response, created: true });
   } catch (err) {
-    return res.status(400).json({ message: "Something went wrong", err });
+    return res
+      .status(400)
+      .json({ message: "Something went wrong", err, created: false });
   }
 });
 

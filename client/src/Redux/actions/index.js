@@ -40,7 +40,7 @@ export function createRecipe(body) {
       body: JSON.stringify(body),
     })
       .then((res) => res.json())
-      .then((data) => dispatch({ type: CREATE_RECIPE, payload: data }));
+      .then((data) => dispatch({ type: CREATE_RECIPE, payload: data.created }));
 }
 
 export function filter(filters) {

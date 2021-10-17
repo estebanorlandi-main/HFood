@@ -12,7 +12,7 @@ import Create from "./Pages/Create/Create.jsx";
 
 import "./App.css";
 import light_bg from "./images/brooke-lark-08bOYnH_r_E-unsplash.jpg";
-import dark_bg from "./images/louis-hansel-U6-KvV7HlMk-unsplash.jpg";
+import dark_bg from "./images/joanna-kosinska-eVQBXxeCre4-unsplash.jpg";
 
 const LandingBG = (isLight) => ({
   background: `linear-gradient(0, ${
@@ -42,6 +42,31 @@ function App() {
       <Switch>
         <Route exact path="/">
           <main style={LandingBG(!theme)}>
+            {theme ? (
+              <span className="attribute">
+                Photo by{" "}
+                <a href="https://unsplash.com/@joannakosinska?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+                  Joanna Kosinska
+                </a>{" "}
+                on{" "}
+                <a href="https://unsplash.com/s/photos/diet?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+                  Unsplash
+                </a>
+              </span>
+            ) : (
+              <span className="attribute">
+                {" "}
+                Photo by{" "}
+                <a href="https://unsplash.com/@brookelark?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+                  Brooke Lark
+                </a>{" "}
+                on{" "}
+                <a href="https://unsplash.com/s/photos/brooke-lark-diet?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">
+                  Unsplash
+                </a>
+              </span>
+            )}
+
             <Landing />
           </main>
         </Route>
