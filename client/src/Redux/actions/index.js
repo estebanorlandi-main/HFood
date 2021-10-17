@@ -4,6 +4,7 @@ export const RECIPE_DETAILS = "RECIPE_DETAILS";
 export const DIET_TYPES = "DIET_TYPES";
 export const CREATE_RECIPE = "CREATE_RECIPE";
 export const ERROR = "ERROR";
+export const THEME = "THEME";
 
 // Handle Data
 export const PAGE = "PAGE";
@@ -52,4 +53,8 @@ export function page(number) {
 
 export function removeError() {
   return { type: ERROR };
+}
+
+export function themeHandle(select) {
+  return { type: THEME, payload: select };
 }

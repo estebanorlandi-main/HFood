@@ -9,7 +9,7 @@ import styles from "./Filters.module.css";
 
 function Filters(props) {
   const dispatch = useDispatch();
-  const diets = useSelector((state) => state.diets);
+  const [diets, theme] = useSelector((state) => [state.diets, state.theme]);
 
   const [inputs, setInputs] = useState({
     search: "",
@@ -52,7 +52,7 @@ function Filters(props) {
     setInputs((old) => ({ ...old, search: e.target.value }));
 
   return (
-    <div className={styles.filters}>
+    <div className={styles.filters + ` ${theme ? styles.dark : ""}`}>
       <button className={styles.hide}>X</button>
       <input
         className={styles.input}

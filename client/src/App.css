@@ -1,3 +1,18 @@
+.dark {
+  min-height: 100%;
+  --c-green: #048742;
+  --c-dark-green: #045732;
+  background-color: #1e1e1e;
+  color: #fff;
+}
+.light {
+  min-height: 100vh;
+  --c-green: #04b762;
+  --c-dark-green: #04a762;
+  background-color: #fafafa;
+  color: #1e1e1e;
+}
+
 .mt-2 {
   margin-top: 2em;
 }
@@ -22,7 +37,12 @@
 .quote {
   font-style: italic;
   font-weight: 300;
-  color: #888;
+  font-size: 1.15rem;
+  padding: 0.5em;
+}
+
+.dark .quote {
+  color: #f0f0f0;
 }
 
 .inline-childs {

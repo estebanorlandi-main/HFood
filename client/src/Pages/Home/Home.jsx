@@ -20,13 +20,17 @@ function Home() {
   const [show, setShow] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
 
-  const page = (page = 0, perPage = 9) => {
+  const perPage = 9;
+  const viewedProducts =
+    currentPage * perPage + totalRecipes - (totalRecipes - show.length);
+
+  const page = (page = 0) => {
     setCurrentPage(page);
     setShow(modified.slice(page * perPage, page * perPage + perPage));
   };
 
   const firstPage = useCallback(
-    (page = 0, perPage = 9) => {
+    (page = 0) => {
       setCurrentPage(page);
       setShow(modified.slice(page * perPage, page * perPage + perPage));
     },
@@ -58,7 +62,7 @@ function Home() {
 
             <h2>Recipes</h2>
             <span className="f-small">
-              {(currentPage + 1) * show.length} / {modified.length}
+              {viewedProducts} / {modified.length}
             </span>
             <div className="grid">
               {show.map((recipe) => (
@@ -69,7 +73,7 @@ function Home() {
         ) : totalRecipes === 0 ? (
           <Loader />
         ) : (
-          ""
+          <h1>Recipes not found</h1>
         )}
       </div>
     </div>

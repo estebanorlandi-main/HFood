@@ -4,7 +4,8 @@
   display: flex;
   flex-direction: column;
   background-color: #f6f6f6;
-  padding: 1em;
+  padding: 0 1em;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -39,13 +40,7 @@
   right: 0;
   opacity: 0;
 }
-.checkbox:hover::after {
-  background-color: var(--c-green);
-  box-shadow: 0 2px 5px var(--c-green);
-  background-color: var(--c-green);
-  width: 10px;
-  z-index: -1;
-}
+
 .checkbox::after {
   position: absolute;
   content: "";
@@ -55,6 +50,14 @@
   height: 100%;
   background-color: #ddd;
   transition: all 0.25s;
+}
+
+.checkbox:hover::after {
+  background-color: var(--c-green);
+  box-shadow: 0 2px 5px var(--c-green);
+  background-color: var(--c-green);
+  width: 10px;
+  z-index: -1;
 }
 
 .active::after {
@@ -93,11 +96,11 @@
 }
 
 .input {
+  margin-top: 1em;
   font-size: 0.9rem;
   padding: 0.5em;
   border-radius: 0.25em;
   border: none;
-  box-shadow: 0 2px 5px var(--c-light-green);
 }
 
 .input:focus {
@@ -123,4 +126,33 @@
     height: 3em;
     margin-bottom: 1em;
   }
+}
+
+.dark {
+  background-color: #2a2a2a;
+  color: #fff;
+  height: 100%;
+}
+.dark .order > button {
+  box-shadow: none;
+}
+.dark .order > button:hover {
+  background-color: var(--c-green);
+}
+.dark .checkbox {
+  color: #eee;
+}
+.dark .checkbox::after {
+  background-color: #444;
+}
+.dark .checkbox:hover::after {
+  background-color: var(--c-green);
+  box-shadow: none;
+}
+.dark .active::after {
+  background: var(--c-green);
+}
+.dark input {
+  background-color: #444;
+  color: #fff;
 }

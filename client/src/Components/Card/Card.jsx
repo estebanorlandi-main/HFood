@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import styles from "./Card.module.css";
 
 function Card({ recipe }) {
+  const theme = useSelector((state) => state.theme);
+
   const ordDiets = recipe.diets.sort();
   const diet = ordDiets.map((diet) => <li className={styles.diet}>{diet}</li>);
 
   return (
-    <Link className={styles.cardContainer} to={`/recipe/${recipe.id}`}>
+    <Link
+      className={styles.cardContainer + ` ${theme ? styles.dark : ""}`}
+      to={`/recipe/${recipe.id}`}
+    >
       <div className={styles.card}>
         <img
           className={styles.card__img}

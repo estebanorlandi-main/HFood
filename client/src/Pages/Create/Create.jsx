@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getTypes, createRecipe } from "../../Redux/actions/index";
 
 import Checkbox from "../../Components/Checkbox/Checkbox.jsx";
-import Button from "../../Components/Buttons/Buttons.jsx";
 
 import validate from "./validate.js";
 
@@ -22,7 +21,7 @@ const formModel = {
 
 function Create() {
   const dispatch = useDispatch();
-  const diets = useSelector((state) => state.diets);
+  const [diets, theme] = useSelector((state) => [state.diets, state.theme]);
 
   const [inputs, setInputs] = useState(formModel);
   const [message, setMessage] = useState({ type: "", value: "" });
@@ -123,7 +122,10 @@ function Create() {
   };
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form
+      className={styles.form + ` ${theme ? styles.dark : ""}`}
+      onSubmit={handleSubmit}
+    >
       {message.value ? (
         <span
           className={`toast ${message.type}`}
@@ -135,6 +137,20 @@ function Create() {
         ""
       )}
       <div id="container" className={styles.formContainer}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {["", "", "", ""].map((value, i) => (
+            <span
+              key={i}
+              className={styles.mark + ` ${i === section ? styles.active : ""}`}
+            ></span>
+          ))}
+        </div>
         <section className={section === 0 ? styles.show : styles.hide}>
           <label
             className={`${styles.inputContainer} ${
@@ -223,7 +239,13 @@ function Create() {
               ? diets
                   .sort()
                   .map((diet, i) => (
-                    <Checkbox onChange={handleCheckbox} name={diet} key={i} />
+                    <Checkbox
+                      onChange={handleCheckbox}
+                      name={diet}
+                      style={styles.checkbox}
+                      styleActive={styles.checkboxActive}
+                      key={i}
+                    />
                   ))
               : ""}
           </div>
@@ -249,18 +271,20 @@ function Create() {
               </label>
             ))}
 
-            <Button
+            <button
               onClick={() =>
-                inputs.steps.length < 10
+                inputs.steps.length < 5
                   ? setInputs((old) => ({
                       ...old,
                       steps: [...old.steps, { error: null, value: "" }],
                     }))
                   : ""
               }
-              type="secondary"
-              text=" + Add step"
-            />
+              className={styles.addStep}
+              type="button"
+            >
+              + Add step
+            </button>
           </div>
           <button type="submit">Submit</button>
         </section>

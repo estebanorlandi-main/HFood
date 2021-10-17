@@ -6,7 +6,7 @@
   height: max-content;
 }
 .recipe__body {
-  margin: 2em 0;
+  padding: 2em 0;
 }
 
 .recipe__scores {
@@ -18,7 +18,7 @@
 
 .recipe__summary {
   margin-top: 0.5em;
-  line-height: 1.5em;
+  line-height: 1.5rem;
 }
 
 .recipe__body li {
@@ -33,6 +33,7 @@
 .recipe__steps li {
   position: relative;
   margin: 0.5em 1em;
+  line-height: 1.5rem;
 }
 .recipe__steps li::before {
   content: "";

@@ -1,32 +1,33 @@
-header {
-  position: sticky;
+.navbar {
+  position: fixed;
   top: 0;
   z-index: 10;
   width: 100%;
   display: flex;
-  background-color: #fff;
-  height: 3em;
-  padding: 0.5em 0;
-}
-
-nav {
-  display: flex;
-  justify-content: center;
   align-items: center;
+  height: 3em;
+  background-color: #fff;
 }
 
-nav ul {
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.nav {
   display: flex;
   height: 100%;
 }
 
-nav li {
+.container li {
   list-style: none;
   height: 100%;
 }
 
-nav a,
-nav button {
+.navbar a,
+.navbar button {
   background-color: transparent;
   border: none;
   text-decoration: none;
@@ -43,7 +44,7 @@ nav button {
   transition: all 0.25s;
   margin-left: 1.5em;
 }
-nav button {
+.navbar button {
   cursor: pointer;
 }
 
@@ -52,15 +53,18 @@ nav button {
   font-size: 1rem;
 }
 
-nav a:hover,
-nav button:hover {
+.navbar a:hover,
+.navbar button:hover {
   color: var(--c-green);
 }
-
-nav a > i {
-  display: none !important;
+.themeCheckbox {
+  justify-self: flex-end;
 }
 
-nav a > span {
-  font-size: 0.9rem;
+.dark {
+  background-color: #252525;
+}
+.dark a,
+.dark button {
+  color: #fff;
 }

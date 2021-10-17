@@ -9,6 +9,9 @@
   color: #fff;
   border: none;
   border-radius: 0;
+  font-weight: bold;
+  border-radius: 100%;
+  transition: all 0.25s linear;
 }
 
 .paginate__container button,
@@ -18,7 +21,7 @@
   align-items: center;
   width: 3em;
   height: 3em;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 
 .paginate__container button:not(:first-child),
@@ -28,5 +31,5 @@
 
 .paginate__container button:hover {
   cursor: pointer;
-  background-color: #050;
+  background-color: var(--c-dark-green);
 }

@@ -63,7 +63,7 @@
 .diet {
   font-size: 0.8rem;
   margin: 0.25em;
-  background-color: var(--c-dark-green);
+  background-color: var(--c-green);
   padding: 2px 10px;
   color: #fff;
   border-radius: 50px;
@@ -79,4 +79,20 @@
 .cardContainer:hover .card__img,
 .cardContainer:focus .card__img {
   opacity: 1;
+}
+
+.dark {
+  box-shadow: none;
+}
+.dark:hover {
+  box-shadow: none;
+}
+.dark .card {
+  background-color: #333;
+}
+.dark .card__header {
+  color: #aaa;
+}
+.dark .card__title {
+  color: #f0f0f0;
 }

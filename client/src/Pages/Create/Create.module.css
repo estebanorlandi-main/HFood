@@ -1,5 +1,5 @@
 .form {
-  position: absolute;
+  position: fixed;
   top: 0;
   display: flex;
   align-items: center;
@@ -11,13 +11,15 @@
 }
 
 .formContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   background-color: #fff;
   box-shadow: 0 4px 2em #0002;
   border-radius: 1em;
-  padding: 1em 3em;
-  width: max-content;
-  height: max-content;
-  transform: translateY(-25%);
+  padding: 2em 3em;
+  width: 25vw;
+  min-height: 40vh;
 }
 
 .inputContainer {
@@ -56,7 +58,13 @@
   border: 1px solid #5ad;
   outline: 1px solid #5ad;
 }
-
+.checkbox {
+}
+.checkbox > input {
+  margin: 1em;
+}
+.checkboxActive {
+}
 .inline {
   display: flex;
   align-items: center;
@@ -100,6 +108,16 @@
   display: none;
 }
 
+.addStep {
+  background-color: #fff;
+  border: 2px solid var(--c-green);
+  border-radius: 2em;
+  color: var(--c-green);
+  font-weight: bold;
+  font-size: 0.85rem;
+  padding: 1em;
+  width: max-content;
+}
 .form button[type="submit"] {
   border: none;
   border-radius: 0;
@@ -117,8 +135,44 @@
 .sectionButtons > button {
   width: 100%;
   background: #fff;
-  border: 2px solid var(--c-green);
+  border: 1px solid var(--c-green);
   color: var(--c-green);
-  padding: 0.5em;
-  margin: 1em 0;
+  padding: 0.75em;
+  margin: 1em 0 1em 0;
+}
+.sectionButtons > button:not(:first-child) {
+  margin-left: 1em;
+}
+.mark {
+  display: block;
+  width: 0.5em;
+  height: 0.5em;
+  background-color: #aaa;
+  border-radius: 100%;
+  transition: all 0.25s;
+}
+.mark:not(:first-child) {
+  margin-left: 1em;
+}
+.active {
+  width: 0.75em;
+  height: 0.75em;
+  background-color: var(--c-green);
+}
+
+.dark .formContainer {
+  background-color: #1e1e1e;
+  box-shadow: 0 0.5em 1em #0008;
+}
+.dark input,
+.dark textarea {
+  border: 1px solid #333;
+  background-color: #333;
+  color: #fff;
+}
+.dark .sectionButtons > button {
+  background-color: #1e1e1e;
+}
+.dark .addStep {
+  background-color: #1e1e1e;
 }

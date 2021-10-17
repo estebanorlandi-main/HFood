@@ -4,6 +4,7 @@ import {
   FILTER,
   DIET_TYPES,
   ERROR,
+  THEME,
 } from "../actions/index";
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   details: {},
   error: undefined,
   diets: [],
+  theme: window.matchMedia("(prefers-color-scheme: dark)").matches,
 };
 
 const filter = (arr1, arr2) => {
@@ -77,8 +79,10 @@ export default function rootReducer(state = initialState, action) {
       return { ...state, diets: action.payload.results };
 
     case ERROR:
-      return { ...initialState, error: undefined };
+      return { ...state, error: undefined };
 
+    case THEME:
+      return { ...state, theme: action.payload };
     default:
       return state;
   }
