@@ -19,6 +19,7 @@
   border-radius: 1em;
   padding: 2em 3em;
   width: 25vw;
+  min-width: 13em;
   min-height: 40vh;
 }
 
@@ -59,9 +60,14 @@
   outline: 1px solid #5ad;
 }
 .checkbox {
+  position: relative;
+  margin: 1em;
 }
 .checkbox > input {
-  margin: 1em;
+  /*opacity: 0;*/
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 .checkboxActive {
 }
@@ -74,7 +80,7 @@
 .diets {
   margin: 1em 0;
   display: grid;
-  grid-template-columns: repeat(2, minmax(max-content, 1fr));
+  grid-template-columns: repeat(2, minmax(min-content, 1fr));
   gap: 1em;
 }
 

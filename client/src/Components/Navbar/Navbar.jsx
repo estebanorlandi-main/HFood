@@ -25,14 +25,20 @@ function Navbar(props) {
           <li>
             <button onClick={props.onClick}>Create</button>
           </li>
+          <li>
+            <label
+              className={
+                styles.themeCheckbox + ` ${theme ? styles.dark : styles.light}`
+              }
+            >
+              <input
+                checked={theme}
+                onChange={(e) => setTheme(e.target.checked)}
+                type="checkbox"
+              />
+            </label>
+          </li>
         </ul>
-        <label className={styles.themeCheckbox}>
-          <input
-            checked={theme}
-            onChange={(e) => setTheme(e.target.checked)}
-            type="checkbox"
-          />
-        </label>
       </nav>
     </header>
   );

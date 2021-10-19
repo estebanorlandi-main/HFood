@@ -11,13 +11,15 @@
 
 .container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
 .nav {
   display: flex;
+  justify-content: flex-end;
+  align-items: center;
   height: 100%;
 }
 
@@ -67,4 +69,46 @@
 .dark a,
 .dark button {
   color: #fff;
+}
+
+.themeCheckbox {
+  display: block;
+  margin-right: 2em;
+  position: relative;
+  width: 1em;
+  min-width: 1em;
+  height: 1em;
+  border-radius: 100%;
+}
+
+.themeCheckbox.dark {
+  background-color: #fff;
+}
+.themeCheckbox.light {
+  background-color: #1e1e1e;
+}
+.themeCheckbox::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: -0.5em;
+  top: 0;
+  width: 1em;
+  height: 1em;
+  border-radius: 100%;
+  background-color: #252525;
+}
+
+.themeCheckbox.dark::before {
+  background-color: #252525;
+}
+.themeCheckbox.light::before {
+  background-color: #fff;
+}
+
+.themeCheckbox > input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
 }

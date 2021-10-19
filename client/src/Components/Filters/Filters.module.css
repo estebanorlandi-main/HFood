@@ -109,22 +109,9 @@
 
 @media (max-width: 33em) {
   .filters {
-    position: fixed;
-    top: 0;
-    z-index: 999;
-    height: 100vh;
+    max-height: 3.75em;
   }
   .hide {
-    display: flex;
-    color: #f00;
-    background-color: transparent;
-    border: 1px solid #f00;
-    width: max-content;
-    align-items: center;
-    justify-content: center;
-    width: 3em;
-    height: 3em;
-    margin-bottom: 1em;
   }
 }
 
