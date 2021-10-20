@@ -150,7 +150,9 @@
     background-color: transparent;
     border: none;
     text-align: left;
-    color: #fff;
     cursor: pointer;
+  }
+  .dark .expand {
+    color: #fff;
   }
 }
