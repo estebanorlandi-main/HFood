@@ -87,8 +87,9 @@ function App() {
             },
           }) => (
             <Fragment>
-              <Navbar />
+              <Navbar onClick={() => setHandleForm((old) => !old)} />
               <main>
+                {handleForm ? <Create /> : ""}
                 <Recipe id={id} />
               </main>
             </Fragment>
