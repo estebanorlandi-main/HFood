@@ -17,9 +17,10 @@
   background-color: #fff;
   box-shadow: 0 4px 2em #0002;
   border-radius: 1em;
-  padding: 2em 3em;
-  width: 25vw;
+  padding: 2em 5vw;
+  width: 17em;
   min-width: 13em;
+  max-width: 30em;
   min-height: 40vh;
 }
 
