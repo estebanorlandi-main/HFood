@@ -10,6 +10,7 @@ import styles from "./Filters.module.css";
 function Filters(props) {
   const dispatch = useDispatch();
   const [diets, theme] = useSelector((state) => [state.diets, state.theme]);
+  const [hide, setHide] = useState(true);
 
   const [inputs, setInputs] = useState({
     search: "",
@@ -52,8 +53,12 @@ function Filters(props) {
     setInputs((old) => ({ ...old, search: e.target.value }));
 
   return (
-    <div className={styles.filters + ` ${theme ? styles.dark : ""}`}>
-      <button className={styles.hide}>X</button>
+    <div
+      className={
+        styles.filters +
+        ` ${theme ? styles.dark : ""} ${hide ? styles.expanded : ""}`
+      }
+    >
       <input
         className={styles.input}
         name="search"
@@ -62,6 +67,9 @@ function Filters(props) {
         placeholder="Search recipe."
         autoComplete="off"
       />
+      <button onClick={() => setHide((old) => !old)} className={styles.expand}>
+        Show filters
+      </button>
 
       <div className={styles.order}>
         <button

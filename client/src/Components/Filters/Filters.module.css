@@ -7,9 +7,10 @@
   padding: 0 1em;
   height: 100%;
   overflow: hidden;
+  transition: all 0.15s;
 }
 
-.hide {
+.expand {
   display: none;
 }
 .byDiet {
@@ -107,14 +108,6 @@
   outline: 2px solid var(--c-green);
 }
 
-@media (max-width: 33em) {
-  .filters {
-    max-height: 3.75em;
-  }
-  .hide {
-  }
-}
-
 .dark {
   background-color: #2a2a2a;
   color: #fff;
@@ -142,4 +135,22 @@
 .dark input {
   background-color: #444;
   color: #fff;
+}
+
+@media (max-width: 33em) {
+  .filters {
+    height: 5.5em;
+  }
+  .expanded {
+    height: 100%;
+  }
+  .expand {
+    margin-top: 1em;
+    display: block;
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    color: #fff;
+    cursor: pointer;
+  }
 }

@@ -25,6 +25,9 @@
 
 .container li {
   list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 100%;
 }
 
@@ -111,4 +114,29 @@
   top: 0;
   left: 0;
   opacity: 0;
+}
+
+@media screen and (max-width: 30em) {
+  .dark .nav {
+    background-color: #252525;
+  }
+  .nav {
+    background-color: #fff;
+  }
+  .container {
+    justify-content: center;
+  }
+  .nav {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    bottom: 0;
+    height: 4em;
+    width: 100%;
+  }
+  .nav li {
+    min-width: 25%;
+  }
 }

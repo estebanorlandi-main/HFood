@@ -69,11 +69,13 @@ function Recipe(props) {
             <br />
             <h3> Diets </h3>
             <ul className={styles.recipe__diets}>
-              {details.diets.map((diet) => (
-                <li key={diet} className={styles.recipe__diet}>
-                  {diet}
-                </li>
-              ))}
+              {details.diets
+                .sort((a, b) => a.length - b.length)
+                .map((diet) => (
+                  <li key={diet} className={styles.recipe__diet}>
+                    {diet}
+                  </li>
+                ))}
             </ul>
           </Fragment>
         ) : (

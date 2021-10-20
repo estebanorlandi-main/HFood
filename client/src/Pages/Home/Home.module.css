@@ -9,5 +9,9 @@
 @media (max-width: 33em) {
   .grid {
     grid-template-columns: repeat(1, minmax(14em, 1fr));
+    padding-bottom: 4em;
+  }
+  .grid:first-child h2 {
+    margin-top: 1em;
   }
 }
