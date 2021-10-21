@@ -4,11 +4,15 @@
 
 # Individual Project - Henry Food
 
-<p align="right">
+<p align="center">
+  <img height="200" src="./images/landing.png" />
+  <img height="200" src="./images/home_dark.png" />
+  <img height="200" src="./images/details_dark.png" />
+</p>
+<p align="center">
   <img height="200" src="./images/landing.png" />
   <img height="200" src="./images/home_dark.png" />
   <img height="200" src="./images/home_light.png" />
-  <img height="200" src="./cooking.png" />
 </p>
 
 ## Objetivos del Proyecto

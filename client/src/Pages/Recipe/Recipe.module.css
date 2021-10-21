@@ -1,6 +1,7 @@
 .recipe {
   width: 85vw;
   margin: 0 auto;
+  min-height: 100vh;
 }
 .recipe__image > img {
   display: block;
